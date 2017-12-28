@@ -2,51 +2,21 @@
   <div id="app">
     <Slideout menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']">
 
-      <nav id="menu">
-        <div>Menu</div>
-        <ul>
-          <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
-          <li v-on:click="closeMenu"><router-link to="/users">Users</router-link></li>
-        </ul>
-      </nav>
+      <sidebar-menu/>
 
       <main id="panel">
 
-        <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky=True>
+        <top-menu/>
 
-          <b-navbar-toggle target="nav_collapse" class="toggle-button"></b-navbar-toggle>
+        <div class="container main-content">
+          <router-view/>
+        </div>
 
-          <b-navbar-brand to="/">Inmo App</b-navbar-brand>
-
-          <b-collapse is-nav id="nav_collapse">
-
-            <b-navbar-nav>
-              <b-nav-item to="/users">Users</b-nav-item>
-              <b-nav-item href="#" disabled>Disabled</b-nav-item>
-            </b-navbar-nav>
-
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
-
-              <b-nav-form>
-                <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-                <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-              </b-nav-form>
-
-              <b-nav-item-dropdown right>
-                <!-- Using button-content slot -->
-                <template slot="button-content">
-                  <em>User</em>
-                </template>
-                <b-dropdown-item href="#">Profile</b-dropdown-item>
-                <b-dropdown-item href="#">Signout</b-dropdown-item>
-              </b-nav-item-dropdown>
-            </b-navbar-nav>
-
-          </b-collapse>
-        </b-navbar>
-
-        <router-view/>
+        <footer>
+          <div class="container">
+            &copy; 2018 Inmo App
+          </div>
+        </footer>
 
       </main>
     </Slideout>
@@ -57,18 +27,15 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Slideout from 'vue-slideout'
-import bNavbar from 'bootstrap-vue/es/components/navbar/navbar'
+import SidebarMenu from '@/components/SidebarMenu'
+import TopMenu from '@/components/TopMenu'
 
 export default {
   name: 'app',
   components: {
     Slideout,
-    'b-navbar': bNavbar
-  },
-  methods: {
-    closeMenu: function () {
-      this.$children[0].slideout.toggle()
-    }
+    SidebarMenu,
+    TopMenu
   }
 }
 </script>
@@ -81,8 +48,16 @@ body {
   background-color: #eee;
 }
 
+h1, .h1 { font-size: 2rem; }
 a:active, a:focus, a:visited,
 button:active, button:focus, button:visited { outline: none; }
+
+footer {
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+}
 
 .slideout-menu {
   position: fixed;
@@ -128,9 +103,10 @@ button:active, button:focus, button:visited { outline: none; }
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
+
+.main-content { padding: 15px 10px; }
 
 /** Navbar styles **/
 #nav_collapse.collapsing, #nav_collapse.show { display: none !important; }

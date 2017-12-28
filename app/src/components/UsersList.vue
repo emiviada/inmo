@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <h1>{{ msg }}</h1>
   </div>
 </template>
@@ -9,12 +9,8 @@ export default {
   name: 'users-list',
   data () {
     return {
-      msg: 'Users'
+      msg: 'Usuarios'
     }
   }
 }
 </script>
-
-<style>
-
-</style>
