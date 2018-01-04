@@ -32,7 +32,10 @@
       </tbody>
     </table>
     <div class="text-right">
-      <router-link to="/agregar-inmueble" class="btn btn-info">Agregar Inmueble</router-link>
+      <router-link to="/agregar-inmueble" class="btn btn-info">
+        <icon name="plus" class="pt-1"></icon>
+        Agregar
+      </router-link>
     </div>
   </div>
 </template>

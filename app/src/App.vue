@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Slideout menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']">
+    <Slideout menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']"
+      @on-beforeopen="showOverlay" @on-beforeclose="hideOverlay">
 
       <sidebar-menu/>
 
@@ -10,11 +11,17 @@
 
         <div class="container main-content">
           <router-view/>
+          <div class="overlay" ref="overlay" style="display: none;"></div>
         </div>
 
         <footer>
-          <div class="container">
-            &copy; 2018 Inmo App
+          <div class="container clearfix">
+            <span class="float-left">&copy; 2018 Inmo App</span>
+            <span class="float-right pt-1">
+              <icon name="facebook"></icon>&nbsp;&nbsp;
+              <icon name="instagram"></icon>&nbsp;&nbsp;
+              <icon name="twitter"></icon>
+            </span>
           </div>
         </footer>
 
@@ -36,6 +43,17 @@ export default {
     Slideout,
     SidebarMenu,
     TopMenu
+  },
+  methods: {
+    showOverlay: function () {
+      this.overlay.style.display = 'block'
+    },
+    hideOverlay: function () {
+      this.overlay.style.display = 'none'
+    }
+  },
+  mounted () {
+    this.overlay = this.$refs.overlay
   }
 }
 </script>
@@ -45,7 +63,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 h1, .h1 { font-size: 2rem; }
@@ -82,7 +100,7 @@ footer {
 }
 
 .slideout-panel {
-  background-color: #eee;
+  background-color: #fff;
   position: relative;
   z-index: 1;
   will-change: transform;
@@ -106,8 +124,20 @@ footer {
   color: #2c3e50;
 }
 
-.main-content { padding: 15px 10px; }
+.main-content { padding: 15px; }
 
-/** Navbar styles **/
-#nav_collapse.collapsing, #nav_collapse.show { display: none !important; }
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 3;
+}
+
+footer .container {
+  font-size: 0.9rem;
+}
+footer .fa-icon { opacity: 0.5; }
 </style>

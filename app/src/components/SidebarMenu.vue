@@ -1,14 +1,30 @@
 <template>
   <nav id="menu">
-    <div class="title">Inmo App</div>
+    <div class="title" v-on:click="closeMenu">
+      <router-link to="/">Inmo App</router-link>
+    </div>
     <ul>
-      <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
-      <li v-on:click="closeMenu"><router-link to="/usuarios">Usuarios</router-link></li>
-      <li v-on:click="closeMenu"><router-link to="/inmuebles">Inmuebles</router-link></li>
+      <li v-on:click="closeMenu">
+        <router-link to="/usuarios">
+          <icon name="users" class="align-middle"></icon>&nbsp;
+          <span class="align-middle">Usuarios</span>
+        </router-link>
+      </li>
+      <li v-on:click="closeMenu">
+        <router-link to="/inmuebles">
+          <icon name="building" class="align-middle"></icon>&nbsp;
+          <span class="align-middle">Inmuebles</span>
+        </router-link>
+      </li>
     </ul>
 
     <ul class="logout">
-      <li v-on:click="closeMenu"><router-link to="/">Cerrar Sesi&oacute;n</router-link></li>
+      <li v-on:click="closeMenu">
+        <router-link to="/">
+          <icon name="sign-out" class="align-middle"></icon>&nbsp;
+          <span class="align-middle">Cerrar Sesi&oacute;n</span>
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -25,27 +41,33 @@ export default {
 </script>
 
 <style>
-#menu { padding-top: 20px }
+#menu { padding-top: 20px; font-size: 0.9rem; }
 #menu .title {
   text-align: center;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-bottom: 19px;
 }
+#menu .title a,
+#menu .title a:hover,
+#menu .title a:focus,
+#menu .title a:active { color: inherit; text-decoration: none; }
 #menu ul {
   list-style-type: none;
   padding-left: 0;
 }
 #menu ul li {
   border-bottom: 1px solid #eee;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
 }
 #menu ul li:first-child {
   border-top: 1px solid #eee;
 }
+#menu ul li:hover { background-color: #000; }
 #menu ul li a {
   color: white;
   text-decoration: none;
   display: block;
 }
+#menu ul li a.router-link-exact-active { opacity: 0.5; }
 #menu .logout { margin-top: 100px; }
 </style>

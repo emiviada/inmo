@@ -24,7 +24,7 @@
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
-            <em>Usuario</em>
+            <icon name="user-circle" scale="2" class="align-middle"></icon>
           </template>
           <b-dropdown-item href="#">Mi Perfil</b-dropdown-item>
           <b-dropdown-item href="#">Cerrar sesi&oacute;n</b-dropdown-item>
@@ -47,5 +47,7 @@ export default {
 </script>
 
 <style>
-
+.navbar-dark .navbar-toggler { border-color: transparent !important; }
+#nav_collapse.collapsing, #nav_collapse.show { display: none !important; }
+.dropdown-toggle::after { border: none; }
 </style>
