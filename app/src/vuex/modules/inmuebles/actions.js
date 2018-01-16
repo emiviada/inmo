@@ -1,10 +1,17 @@
+import Vue from 'vue'
 import uuid from 'uuid'
 
 import {
+  FETCH_INMUEBLES,
   DELETE_INMUEBLE,
   CREATE_INMUEBLE,
   UPDATE_INMUEBLE
 } from './mutation-types'
+
+export function fetchInmuebles ({ commit }) {
+  return Vue.http.get('inmuebles/')
+    .then((response) => commit(FETCH_INMUEBLES, response.body.data))
+}
 
 export function saveInmueble ({ commit, state }, inmueble) {
   const index = state.all.findIndex((p) => p.id === inmueble.id)

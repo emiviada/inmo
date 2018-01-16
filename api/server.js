@@ -4,11 +4,14 @@
 // call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
+var cors       = require('cors');
 var bodyParser = require('body-parser');
 
 var Inmuebles  = require('./models/inmuebles');
 
 
+// Configure app to use CORS
+app.use(cors());
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,12 +25,16 @@ var router = express.Router();              // get an instance of the express Ro
 
 // Middleware to use for all requests
 router.use(function(req, res, next) {
+  var error = false;
   // Check if Content-Type header is properly setup
   if (req.get('Content-Type') != 'application/json') {
+    error = true;
     res.status(400).json({"error": true, "message": "Content-Type header is not properly setup."});
   }
   // TODO: do logging
-  next(); // make sure we go to the next routes and don't stop here
+  if (!error) {
+    next(); // make sure we go to the next routes and don't stop here
+  }
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:PORT/api)
