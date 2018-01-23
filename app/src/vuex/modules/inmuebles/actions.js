@@ -26,5 +26,6 @@ export function saveInmueble ({ commit, state }, inmueble) {
 }
 
 export function deleteInmueble ({ commit }, inmuebleId) {
-  commit(DELETE_INMUEBLE, inmuebleId)
+  return Vue.http.delete('inmuebles/' + inmuebleId)
+    .then((response) => commit(DELETE_INMUEBLE, inmuebleId))
 }

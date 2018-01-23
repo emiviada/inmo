@@ -140,4 +140,8 @@ footer .container {
   font-size: 0.9rem;
 }
 footer .fa-icon { opacity: 0.5; }
+
+/*** Override Sweet Modal styles ***/
+.sweet-modal.is-alert .sweet-content { padding-bottom: 20px !important; }
+/*** END Override Sweet Modal styles ***/
 </style>

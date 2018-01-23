@@ -23,7 +23,7 @@
             </router-link>
           </td>
           <td>
-            <a href="#" class="text-danger" v-on:click.prevent.stop="onRemoveDialog(inmueble.id)">
+            <a href="#" class="text-danger" v-on:click.prevent.stop="onDeleteDialog(inmueble.id)">
               <icon name="close"></icon>
               <span class="d-none d-sm-inline-block">Eliminar</span>
             </a>
@@ -43,10 +43,12 @@
 
     <!-- Modal -->
     <sweet-modal icon="warning" hide-close-button blocking overlay-theme="dark" ref="deleteModal">
-      ¿Est&aacute;s seguro?
+      ¿Est&aacute;s seguro? <br/>
+      Esta acci&oacute;n no se puede volver atr&aacute;s.
 
-      <div class="text-right">
-        <button class="btn btn-primary" v-on:click="closeDialog()">Cancelar</button>
+      <div class="text-right mt-3">
+        <button class="btn btn-sm btn-danger" v-on:click="confirmDeletion()">Si</button>
+        <button class="btn btn-sm btn-link" v-on:click="closeDialog()">Cancelar</button>
       </div>
     </sweet-modal>
   </div>
@@ -56,11 +58,17 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import SweetModal from 'sweet-modal-vue/src/components/SweetModal'
+import VueNotifications from 'vue-notifications'
 
 export default {
   name: 'inmuebles-list',
   components: {
     SweetModal
+  },
+  data () {
+    return {
+      toDelete: null
+    }
   },
   computed: mapGetters({
     inmuebles: 'getInmuebles'
@@ -69,11 +77,15 @@ export default {
     ...mapActions([
       'deleteInmueble'
     ]),
-    onRemoveDialog () {
+    onDeleteDialog (inmuebleId) {
       this.$refs.deleteModal.open()
+      this.toDelete = inmuebleId
     },
-    onRemove (inmuebleId) {
-      this.deleteInmueble(inmuebleId)
+    confirmDeletion () {
+      var _this = this
+      this.deleteInmueble(this.toDelete)
+        .then((response) => _this.notifySuccessDeletion())
+      this.closeDialog()
     },
     closeDialog () {
       this.$refs.deleteModal.close()
@@ -81,6 +93,13 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchInmuebles')
+  },
+  notifications: {
+    notifySuccessDeletion: {
+      type: VueNotifications.types.success,
+      title: '',
+      message: 'Inmueble eliminado'
+    }
   }
 }
 </script>

@@ -8,6 +8,9 @@ import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import VueNotifications from 'vue-notifications'
+import iziToast from 'izitoast' // https://github.com/dolce/iziToast
+import 'izitoast/dist/css/iziToast.min.css'
 
 Vue.config.productionTip = false
 
@@ -17,6 +20,20 @@ Vue.use(VueResource)
 Vue.http.options.root = process.env.API_BASE_URL
 Vue.http.headers.common['Content-Type'] = 'application/json'
 Vue.use(BootstrapVue)
+// Toast plugin
+function toast ({title, message, type, timeout, cb}) {
+  if (type === VueNotifications.types.warn) type = 'warning'
+  let toastPosition = (document.documentElement.clientWidth >= 768) ? 'topRight' : 'bottomLeft'
+  return iziToast[type]({title, message, timeout, position: toastPosition})
+}
+const options = {
+  success: toast,
+  error: toast,
+  info: toast,
+  warn: toast
+}
+Vue.use(VueNotifications, options)
+
 // Components
 Vue.component('icon', Icon)
 

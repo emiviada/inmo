@@ -27,7 +27,7 @@ var router = express.Router();              // get an instance of the express Ro
 router.use(function(req, res, next) {
   var error = false;
   // Check if Content-Type header is properly setup
-  if (req.get('Content-Type') != 'application/json') {
+  if (req.get('Content-Type').indexOf('application/json') < 0) {
     error = true;
     res.status(400).json({"error": true, "message": "Content-Type header is not properly setup."});
   }
