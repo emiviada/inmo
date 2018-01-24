@@ -34,8 +34,21 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Slideout from 'vue-slideout'
+import { Validator } from 'vee-validate'
 import SidebarMenu from '@/components/SidebarMenu'
 import TopMenu from '@/components/TopMenu'
+
+// Configure validator's messages
+const dictionary = {
+  es: {
+    messages: {
+      required: () => 'Este campo es requerido.'
+    }
+  }
+}
+// Override and merge the dictionaries
+Validator.localize(dictionary)
+Validator.localize('es')
 
 export default {
   name: 'app',
@@ -140,6 +153,15 @@ footer .container {
   font-size: 0.9rem;
 }
 footer .fa-icon { opacity: 0.5; }
+
+/*** Form errors ***/
+.help.is-danger {
+  color: #ff3860;
+}
+input.is-danger, textarea.is-danger, select.is-danger {
+  border-color: #ff3860;
+}
+/*** END Form errors ***/
 
 /*** Override Sweet Modal styles ***/
 .sweet-modal.is-alert .sweet-content { padding-bottom: 20px !important; }

@@ -1,21 +1,42 @@
 <template>
-  <form class="col-lg-6">
+  <form class="col-lg-8">
+
     <div class="form-group">
-      <label for="InmuebleType">Tipo de propiedad</label>
-      <select v-model="inmueble.type" class="form-control" id="InmuebleType">
-        <option value="Casa">Casa</option>
-        <option value="Depto">Departamento</option>
-        <option value="Baldio">Baldio</option>
+      <label for="inmuebleType">Tipo de propiedad</label>
+      <select v-model="inmueble.type" v-validate="'required'" :class="{'form-control': true, 'is-danger': errors.has('inmuebleType') }" id="inmuebleType" name="inmuebleType">
+        <option value="">---</option>
+        <option v-for="(type, index) in types" v-bind:value="index">{{ type }}</option>
       </select>
+      <span v-show="errors.has('inmuebleType')" class="help is-danger">{{ errors.first('inmuebleType') }}</span>
     </div>
-    <div class="form-group">
-      <label for="inmuebleLocation">Ubicación</label>
-      <textarea class="form-control" v-model="inmueble.location" id="inmuebleLocation" rows="3" maxlength="128" placeholder="Ingresa la ubicaci&oacute;n del inmueble"></textarea>
+
+    <h4>Ubicaci&oacute;n</h4>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inmuebleStreet">Calle</label>
+        <input type="text" class="form-control" v-model="inmueble.street" id="inmuebleStreet" ></textarea>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inmuebleNeighborhood">Barrio</label>
+        <input type="text" class="form-control" v-model="inmueble.neighborhood" id="inmuebleNeighborhood" ></textarea>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="price">Precio</label>
-      <input type="number" v-model="inmueble.price" class="form-control" id="price" placeholder="Ingresa el precio" number>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inmuebleCity">Ciudad</label>
+        <input type="text" class="form-control" v-model="inmueble.city" id="inmuebleCity" ></textarea>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inmuebleState">Provincia</label>
+        <select v-model="inmueble.state" class="form-control" id="InmuebleState">
+          <option value="">---</option>
+          <option v-for="(province, index) in provinces" v-bind:value="index">{{ province }}</option>
+        </select>
+      </div>
     </div>
+
     <div class="text-right">
       <router-link to="/inmuebles" class="btn btn-link">Cancelar</router-link> &nbsp;&nbsp;
       <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-success">Guardar</button>
@@ -24,12 +45,27 @@
 </template>
 
 <script>
+import { inmuebleTypes, provinces } from '../common'
+
 export default {
   name: 'save-inmueble-form',
   props: ['inmueble'],
+  data () {
+    return {
+      types: inmuebleTypes,
+      provinces: provinces
+    }
+  },
   methods: {
+    validateBeforeSubmit () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.$emit('submit', this.inmueble)
+        }
+      })
+    },
     onSubmit () {
-      this.$emit('submit', this.inmueble)
+      this.validateBeforeSubmit()
     }
   }
 }

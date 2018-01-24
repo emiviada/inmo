@@ -34,7 +34,7 @@ export default {
     ]),
     onFormSave (inmuebleData) {
       console.log('inmueble Guardado con exito', JSON.stringify(inmuebleData))
-      this.saveInmueble(inmuebleData)
+      // this.saveInmueble(inmuebleData)
       this.$router.push('/inmuebles')
     }
   }

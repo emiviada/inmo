@@ -8,6 +8,7 @@ import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import VeeValidate from 'vee-validate'
 import VueNotifications from 'vue-notifications'
 import iziToast from 'izitoast' // https://github.com/dolce/iziToast
 import 'izitoast/dist/css/iziToast.min.css'
@@ -19,7 +20,10 @@ Vue.use(VueResource)
 // set the API root so we can use relative url's in our actions.
 Vue.http.options.root = process.env.API_BASE_URL
 Vue.http.headers.common['Content-Type'] = 'application/json'
+Vue.use(VeeValidate)
+// Bootstrap
 Vue.use(BootstrapVue)
+
 // Toast plugin
 function toast ({title, message, type, timeout, cb}) {
   if (type === VueNotifications.types.warn) type = 'warning'
