@@ -9,15 +9,14 @@
 
 <script>
 import { mapActions } from 'vuex'
+import VueNotifications from 'vue-notifications'
 import SaveInmuebleForm from './SaveInmuebleForm'
 
 const initialData = () => {
   return {
     emptyInmueble: {
       id: null,
-      name: '',
-      description: '',
-      price: null
+      type: null
     }
   }
 }
@@ -33,9 +32,26 @@ export default {
       'saveInmueble'
     ]),
     onFormSave (inmuebleData) {
-      console.log('inmueble Guardado con exito', JSON.stringify(inmuebleData))
-      // this.saveInmueble(inmuebleData)
-      this.$router.push('/inmuebles')
+      // console.log('inmueble Guardado con exito', JSON.stringify(inmuebleData))
+      var _this = this
+      this.saveInmueble(inmuebleData)
+        .then((response) => {
+          _this.notifySuccessCreation()
+          this.$router.push('/inmuebles')
+        })
+        .catch(() => _this.notifyErrorCreation())
+    }
+  },
+  notifications: {
+    notifySuccessCreation: {
+      type: VueNotifications.types.success,
+      title: 'Felicitaciones',
+      message: 'Inmueble creado con éxito'
+    },
+    notifyErrorCreation: {
+      type: VueNotifications.types.error,
+      title: 'Error',
+      message: 'Intentalo más tarde.'
     }
   }
 }

@@ -13,9 +13,9 @@
       </thead>
       <tbody>
         <tr v-for="inmueble in inmuebles" track-by="id">
-          <td>{{inmueble.type}}</td>
+          <td>{{getInmuebleType(inmueble.type)}}</td>
           <td class="d-none d-sm-table-cell">{{inmueble.street}}</td>
-          <td>{{inmueble.state}}:-</td>
+          <td>{{getInmuebleState(inmueble.state)}}</td>
           <td>
             <router-link :to="{ name: 'EditInmueble', params: { id: inmueble.id } }">
               <icon name="pencil"></icon>
@@ -59,6 +59,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import SweetModal from 'sweet-modal-vue/src/components/SweetModal'
 import VueNotifications from 'vue-notifications'
+import { inmuebleTypes, provinces } from '../common'
 
 export default {
   name: 'inmuebles-list',
@@ -70,9 +71,11 @@ export default {
       toDelete: null
     }
   },
-  computed: mapGetters({
-    inmuebles: 'getInmuebles'
-  }),
+  computed: {
+    ...mapGetters({
+      inmuebles: 'getInmuebles'
+    })
+  },
   methods: {
     ...mapActions([
       'deleteInmueble'
@@ -89,6 +92,12 @@ export default {
     },
     closeDialog () {
       this.$refs.deleteModal.close()
+    },
+    getInmuebleType (inmuebleType) {
+      return inmuebleTypes[inmuebleType]
+    },
+    getInmuebleState (inmuebleState) {
+      return provinces[inmuebleState]
     }
   },
   created () {

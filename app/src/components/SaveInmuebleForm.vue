@@ -39,7 +39,7 @@
 
     <div class="text-right">
       <router-link to="/inmuebles" class="btn btn-link">Cancelar</router-link> &nbsp;&nbsp;
-      <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-success">Guardar</button>
+      <button type="submit" v-on:click.prevent="onSubmit" :disabled="submitting" class="btn btn-success">Guardar</button>
     </div>
   </form>
 </template>
@@ -53,7 +53,8 @@ export default {
   data () {
     return {
       types: inmuebleTypes,
-      provinces: provinces
+      provinces: provinces,
+      submitting: false
     }
   },
   methods: {
@@ -65,7 +66,10 @@ export default {
       })
     },
     onSubmit () {
+      this.submitting = true
       this.validateBeforeSubmit()
+      var _this = this
+      setTimeout(function () { _this.submitting = false }, 2000)
     }
   }
 }

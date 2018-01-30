@@ -1,6 +1,7 @@
 var mysql = require('mysql'),
     db    = require('../dbconnection'),
-    Utils = require('../utils');
+    Utils = require('../utils'),
+    ValidationError = require('../errors/index');
 
 /** Inmuebles' methods **/
 const tableName = "inmuebles";
@@ -22,6 +23,13 @@ const Inmuebles = {
   },
 
   create: function (data, callback) {
+
+    try {
+      validate('create', data);
+    } catch (err) {
+      return callback(err);
+    }
+
     var query = "INSERT INTO ?? (",
         valuesString = "",
         values = [],
@@ -48,6 +56,13 @@ const Inmuebles = {
   },
 
   update: function(id, data, callback) {
+
+    try {
+      validate('update', data);
+    } catch (err) {
+      return callback(err);
+    }
+
     var query = "UPDATE ?? SET ",
         table = [tableName];
     for (var prop in data) {
@@ -72,6 +87,28 @@ const Inmuebles = {
 
     return db.query(query, callback);
   }
+};
+
+// Validate data
+function validate(mode, data) {
+  let allowed = ['type', 'street', 'neighborhood', 'city', 'state'],
+    required = ['type'];
+
+  // First check allowed fields
+  for (var prop in data) {
+    if (allowed.indexOf(prop) === -1) {
+      throw new ValidationError('Field "' + prop + '" is not allowed.');
+    }
+  }
+
+  // Check required fields
+  for (var i in required) {
+    if (Object.keys(data).indexOf(required[i]) === -1) {
+      throw new ValidationError('Field "' + required[i] + '" is required.');
+    }
+  }
+
+  return true;
 };
 
 module.exports = Inmuebles;

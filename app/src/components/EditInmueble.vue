@@ -9,6 +9,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import VueNotifications from 'vue-notifications'
 import SaveInmuebleForm from './SaveInmuebleForm'
 
 export default {
@@ -27,13 +28,34 @@ export default {
       'saveInmueble'
     ]),
     onFormSave (inmuebleData) {
-      console.log('inmueble Editado con exito', JSON.stringify(inmuebleData))
+      // console.log('inmueble Editado con exito', JSON.stringify(inmuebleData))
+      var _this = this
       this.saveInmueble(inmuebleData)
-      this.$router.push('/inmuebles')
+        .then((response) => _this.notifySuccessEdition())
+        .catch((err) => {
+          console.log(err)
+          _this.notifyErrorEdition()
+        })
+    }
+  },
+  notifications: {
+    notifySuccessEdition: {
+      type: VueNotifications.types.success,
+      title: 'Felicitaciones',
+      message: 'Inmueble Editado con éxito'
+    },
+    notifyErrorEdition: {
+      type: VueNotifications.types.error,
+      title: 'Error',
+      message: 'Intentalo más tarde.'
     }
   },
   mounted () {
-    this.inmueble = { ...this.getInmueble(this.$route.params.id) }
+    var _this = this
+    this.getInmueble(this.$route.params.id)
+      .then((inmueble) => {
+        _this.inmueble = inmueble
+      })
   }
 }
 </script>

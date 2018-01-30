@@ -19,19 +19,13 @@ const mutations = {
     state.all = inmuebles
   },
 
-  [CREATE_INMUEBLE] (state, inmueble) {
-    state.all.push(inmueble)
+  [CREATE_INMUEBLE] (state, response) {
+    console.log(response, response.headers.get('Location')) // --> GET LOCATION header to redirect to just created object
+    // Do nothing for now
   },
 
   [UPDATE_INMUEBLE] (state, inmueble) {
-    const index = state.all.findIndex((p) => p.id === inmueble.id)
-
-    if (index !== -1) {
-      // We need to replace the array entirely so that vue can recognize
-      // the change and re-render entirely.
-      // See http://vuejs.org/guide/list.html#Caveats
-      state.all.splice(index, 1, inmueble)
-    }
+    // Do nothing for now
   },
 
   [DELETE_INMUEBLE] (state, inmuebleId) {

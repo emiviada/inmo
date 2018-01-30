@@ -7,6 +7,7 @@ var app        = express();                 // define our app using express
 var cors       = require('cors');
 var bodyParser = require('body-parser');
 
+var ValidationError = require('./errors/index');
 var Inmuebles  = require('./models/inmuebles');
 
 
@@ -25,13 +26,23 @@ var router = express.Router();              // get an instance of the express Ro
 
 // Middleware to use for all requests
 router.use(function(req, res, next) {
+  // TODO: do logging
   var error = false;
+
   // Check if Content-Type header is properly setup
   if (req.get('Content-Type').indexOf('application/json') < 0) {
     error = true;
     res.status(400).json({"error": true, "message": "Content-Type header is not properly setup."});
   }
-  // TODO: do logging
+
+  // In POST/PUT requests, check that dara was provided
+  if (req.method === 'POST' || req.method === 'PUT') {
+    if (Object.keys(req.body).length === 0) {
+       error = true;
+       res.status(400).json({"error": true, "message": "Data should be provided."});
+    }
+  }
+
   if (!error) {
     next(); // make sure we go to the next routes and don't stop here
   }
@@ -63,7 +74,11 @@ router.route('/inmuebles')
 
     Inmuebles.create(req.body, function(err, result) {
       if (err) {
-        res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+        if (err instanceof ValidationError) {
+          res.status(400).json({"error": true, "message": err.message});
+        } else {
+          res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+        }
       } else {
         var locationUrl = '/api/inmuebles/' + result.insertId;
         res.set('Location', locationUrl);

@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import uuid from 'uuid'
 
 import {
   FETCH_INMUEBLES,
@@ -13,15 +12,25 @@ export function fetchInmuebles ({ commit }) {
     .then((response) => commit(FETCH_INMUEBLES, response.body.data))
 }
 
+export function createInmueble ({ commit }, inmueble) {
+  return Vue.http.post('inmuebles/', inmueble)
+    .then((response) => commit(CREATE_INMUEBLE, response))
+}
+
+export function updateInmueble ({ commit }, inmueble) {
+  return Vue.http.put('inmuebles/' + inmueble.id, inmueble)
+    .then((response) => commit(UPDATE_INMUEBLE, response.body.data))
+}
+
 export function saveInmueble ({ commit, state }, inmueble) {
   const index = state.all.findIndex((p) => p.id === inmueble.id)
 
   // update inmueble if it exists or create it if it doesn't
   if (index !== -1) {
-    commit(UPDATE_INMUEBLE, inmueble)
+    return updateInmueble({ commit }, inmueble)
   } else {
-    inmueble.id = uuid.v4()
-    commit(CREATE_INMUEBLE, inmueble)
+    delete inmueble.id
+    return createInmueble({ commit }, inmueble)
   }
 }
 
