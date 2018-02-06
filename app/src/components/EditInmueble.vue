@@ -28,12 +28,10 @@ export default {
       'saveInmueble'
     ]),
     onFormSave (inmuebleData) {
-      // console.log('inmueble Editado con exito', JSON.stringify(inmuebleData))
       var _this = this
       this.saveInmueble(inmuebleData)
-        .then((response) => _this.notifySuccessEdition())
-        .catch((err) => {
-          console.log(err)
+        .then(() => _this.notifySuccessEdition())
+        .catch(() => {
           _this.notifyErrorEdition()
         })
     }

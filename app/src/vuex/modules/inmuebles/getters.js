@@ -10,3 +10,5 @@ export const getInmueble = state => {
       .then((response) => response.body.data[0])
   }
 }
+
+export const getJustCreatedId = state => state.justCreatedId

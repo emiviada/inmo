@@ -18,15 +18,17 @@ export function createInmueble ({ commit }, inmueble) {
 }
 
 export function updateInmueble ({ commit }, inmueble) {
-  return Vue.http.put('inmuebles/' + inmueble.id, inmueble)
+  let inmuebleId = inmueble.id
+  delete inmueble.id
+  return Vue.http.put('inmuebles/' + inmuebleId, inmueble)
     .then((response) => commit(UPDATE_INMUEBLE, response.body.data))
 }
 
 export function saveInmueble ({ commit, state }, inmueble) {
-  const index = state.all.findIndex((p) => p.id === inmueble.id)
-
-  // update inmueble if it exists or create it if it doesn't
-  if (index !== -1) {
+  delete inmueble.created_at
+  delete inmueble.updated_at
+  // update inmueble if ID is defined
+  if (inmueble.id) {
     return updateInmueble({ commit }, inmueble)
   } else {
     delete inmueble.id

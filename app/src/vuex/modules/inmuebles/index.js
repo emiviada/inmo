@@ -10,7 +10,8 @@ import {
 
 // initial state
 const initialState = {
-  all: []
+  all: [],
+  justCreatedId: null
 }
 
 // mutations
@@ -20,8 +21,8 @@ const mutations = {
   },
 
   [CREATE_INMUEBLE] (state, response) {
-    console.log(response, response.headers.get('Location')) // --> GET LOCATION header to redirect to just created object
-    // Do nothing for now
+    let exploded = response.headers.get('Location').split('/')
+    state.justCreatedId = exploded[exploded.length - 1]
   },
 
   [UPDATE_INMUEBLE] (state, inmueble) {

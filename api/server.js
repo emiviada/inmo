@@ -12,7 +12,10 @@ var Inmuebles  = require('./models/inmuebles');
 
 
 // Configure app to use CORS
-app.use(cors());
+var corsOptions = {
+  exposedHeaders: 'location'
+}
+app.use(cors(corsOptions));
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -118,7 +121,11 @@ router.route('/inmuebles/:inmueble_id')
             } else {
               Inmuebles.update(req.params.inmueble_id, req.body, function(err, result) {
                 if (err) {
-                  res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+                  if (err instanceof ValidationError) {
+                    res.status(400).json({"error": true, "message": err.message});
+                  } else {
+                    res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+                  }
                 } else {
                   res.json({"error": false, "message": "Inmueble updated."});
                 }

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import VueNotifications from 'vue-notifications'
 import SaveInmuebleForm from './SaveInmuebleForm'
 
@@ -27,6 +27,7 @@ export default {
     SaveInmuebleForm
   },
   data: initialData,
+  computed: mapGetters(['getJustCreatedId']),
   methods: {
     ...mapActions([
       'saveInmueble'
@@ -35,9 +36,11 @@ export default {
       // console.log('inmueble Guardado con exito', JSON.stringify(inmuebleData))
       var _this = this
       this.saveInmueble(inmuebleData)
-        .then((response) => {
+        .then(() => {
           _this.notifySuccessCreation()
-          this.$router.push('/inmuebles')
+          let id = this.$store.getters.getJustCreatedId
+          let route = (id) ? '/editar-inmueble/' + id : '/inmuebles'
+          this.$router.push(route)
         })
         .catch(() => _this.notifyErrorCreation())
     }
