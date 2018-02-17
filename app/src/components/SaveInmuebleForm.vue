@@ -3,7 +3,7 @@
 
     <div class="form-group">
       <label for="inmuebleType">Tipo de propiedad</label>
-      <select v-model="inmueble.type" v-validate="'required'" :class="{'form-control': true, 'is-danger': errors.has('inmuebleType') }" id="inmuebleType" name="inmuebleType">
+      <select v-model="inmueble.type" v-validate="'required'" :class="{'form-control': true, 'is-danger': errors.has('inmuebleType') }" id="inmuebleType" name="inmuebleType" v-bind:disabled="isEditMode">
         <option value="">---</option>
         <option v-for="(type, index) in types" v-bind:value="index">{{ type }}</option>
       </select>
@@ -49,12 +49,17 @@ import { inmuebleTypes, provinces } from '../common'
 
 export default {
   name: 'save-inmueble-form',
-  props: ['inmueble'],
+  props: ['inmueble', 'mode'],
   data () {
     return {
       types: inmuebleTypes,
       provinces: provinces,
       submitting: false
+    }
+  },
+  computed: {
+    isEditMode () {
+      return this.mode === 'edit'
     }
   },
   methods: {

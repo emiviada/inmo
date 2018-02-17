@@ -2,7 +2,7 @@
   <div>
     <h1>Agregar Inmueble</h1>
     <div class="row">
-      <save-inmueble-form :inmueble="emptyInmueble" v-on:submit="onFormSave"/>
+      <save-inmueble-form :inmueble="emptyInmueble" :mode="'add'" v-on:submit="onFormSave"/>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@ export default {
       'saveInmueble'
     ]),
     onFormSave (inmuebleData) {
-      // console.log('inmueble Guardado con exito', JSON.stringify(inmuebleData))
       var _this = this
       this.saveInmueble(inmuebleData)
         .then(() => {
