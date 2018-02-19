@@ -42,7 +42,8 @@ import TopMenu from '@/components/TopMenu'
 const dictionary = {
   es: {
     messages: {
-      required: () => 'Este campo es requerido.'
+      required: () => 'Este campo es requerido.',
+      decimal: () => 'El valor es no válido.'
     }
   }
 }

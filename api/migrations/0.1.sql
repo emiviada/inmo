@@ -1,3 +1,4 @@
 -- 2018-01-08: Emiliano Viada
 CREATE TABLE IF NOT EXISTS `inmuebles` (id INT AUTO_INCREMENT, type VARCHAR(100) NOT NULL, street TEXT, neighborhood VARCHAR(255) DEFAULT NULL,
-    city VARCHAR(255), state VARCHAR(100), created_at DATETIME, updated_at DATETIME, PRIMARY KEY(id)) ENGINE = INNODB;
+    city VARCHAR(255), state VARCHAR(100), area_front FLOAT NOT NULL DEFAULT 0, area_back FLOAT NOT NULL DEFAULT 0,
+    area_built FLOAT NOT NULL DEFAULT 0, created_at DATETIME, updated_at DATETIME, PRIMARY KEY(id)) ENGINE = INNODB;
