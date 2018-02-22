@@ -59,7 +59,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import SweetModal from 'sweet-modal-vue/src/components/SweetModal'
 import VueNotifications from 'vue-notifications'
-import { inmuebleTypes, provinces } from '../common'
+import { inmuebleTypes, provinces } from '../../common'
 
 export default {
   name: 'inmuebles-list',

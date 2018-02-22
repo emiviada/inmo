@@ -92,7 +92,7 @@ const Inmuebles = {
 // Validate data
 function validate(mode, data) {
   let allowed = ['type', 'street', 'neighborhood', 'city', 'state', 'area_front', 'area_back',
-    'area_built'],
+    'area_built', 'water', 'electricity', 'gas', 'streetlight', 'cord', 'pavement'],
     required = ['type'];
 
   // First check allowed fields

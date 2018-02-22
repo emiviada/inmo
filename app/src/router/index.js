@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import UsersList from '@/components/UsersList'
-import InmueblesList from '@/components/InmueblesList'
-import AddInmueble from '@/components/AddInmueble'
-import EditInmueble from '@/components/EditInmueble'
+import InmueblesList from '@/components/inmuebles/InmueblesList'
+import AddInmueble from '@/components/inmuebles/AddInmueble'
+import EditInmueble from '@/components/inmuebles/EditInmueble'
 
 Vue.use(Router)
 
