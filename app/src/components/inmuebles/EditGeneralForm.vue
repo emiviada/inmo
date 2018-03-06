@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Superficie</h4>
+    <h4 class="subsection">Superficie</h4>
 
     <div class="form-row">
       <div class="col-md-12">Del terreno</div>
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <h4>Servicios</h4>
+    <h4 class="subsection">Servicios</h4>
 
     <div class="form-row">
       <div class="form-check col-6 col-md-4">

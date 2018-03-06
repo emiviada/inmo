@@ -15,9 +15,13 @@ const Inmuebles = {
   },
 
   getById: function(id, callback) {
-    var query = "SELECT * FROM ?? WHERE ??=?";
-    var table = [tableName, "id", id];
-    query = mysql.format(query, table);
+    var query = 'SELECT ??.*, '
+      + 'GROUP_CONCAT(CONCAT("type:", inmuebles_photos.type, "|name:", inmuebles_photos.name, "|obs:", inmuebles_photos.obs)) as `pics`'
+      + ' FROM ??, inmuebles_photos'
+      + ' WHERE inmuebles.id = inmuebles_photos.inmueble_id'
+      + ' AND inmuebles.id=? GROUP BY inmuebles.id;';
+    var params = [tableName, tableName, id];
+    query = mysql.format(query, params);
 
     return db.query(query, callback);
   },
@@ -92,7 +96,9 @@ const Inmuebles = {
 // Validate data
 function validate(mode, data) {
   let allowed = ['type', 'street', 'neighborhood', 'city', 'state', 'area_front', 'area_back',
-    'area_built', 'water', 'electricity', 'gas', 'streetlight', 'cord', 'pavement'],
+    'area_built', 'water', 'electricity', 'gas', 'streetlight', 'cord', 'pavement', 'kitchen',
+    'water_heater', 'inmersion_heater', 'air_conditioner', 'heater', 'fan', 'central_heater',
+    'alarm', 'kitchen_furniture', 'placard', 'campana'],
     required = ['type'];
 
   // First check allowed fields

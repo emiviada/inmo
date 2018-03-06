@@ -12,6 +12,8 @@ import VeeValidate from 'vee-validate'
 import VueNotifications from 'vue-notifications'
 import iziToast from 'izitoast' // https://github.com/dolce/iziToast
 import 'izitoast/dist/css/iziToast.min.css'
+import Loading from 'vue-loading-overlay' // https://github.com/ankurk91/vue-loading-overlay
+import 'vue-loading-overlay/dist/vue-loading.min.css'
 
 Vue.config.productionTip = false
 
@@ -23,6 +25,7 @@ Vue.http.headers.common['Content-Type'] = 'application/json'
 Vue.use(VeeValidate)
 // Bootstrap
 Vue.use(BootstrapVue)
+Vue.use(Loading)
 
 // Toast plugin
 function toast ({title, message, type, timeout, cb}) {

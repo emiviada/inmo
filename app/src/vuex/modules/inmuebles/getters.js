@@ -7,7 +7,7 @@ export const getInmueble = state => {
     // const index = state.all.findIndex((p) => p.id === inmuebleId)
     // return state.all[index]
     return Vue.http.get('inmuebles/' + inmuebleId)
-      .then((response) => response.body.data[0])
+      .then((response) => response.body.data)
   }
 }
 

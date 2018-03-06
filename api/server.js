@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 
 var ValidationError = require('./errors/index');
 var Inmuebles  = require('./models/inmuebles');
+var InmueblesPhotos  = require('./models/inmueblesPhotos');
 
 
 // Configure app to use CORS
@@ -101,7 +102,9 @@ router.route('/inmuebles/:inmueble_id')
           res.status(500).json({"error": true, "message": "Error executing MySQL query"});
         } else {
           if (rows.length) {
-            res.json({"error": false, "message": "Success", "data": rows});
+            var row = rows[0];
+            row.pics = getInmueblePhotos(row);
+            res.json({"error": false, "message": "Success", "data": row});
           } else {
             res.status(404).json({"error": true, "message": "Not Found"});
           }
@@ -119,7 +122,15 @@ router.route('/inmuebles/:inmueble_id')
             if (Object.keys(req.body).length == 0) {
               res.status(400).json({"error": true, "message": "Bad request: No fields to update"});
             } else {
-              Inmuebles.update(req.params.inmueble_id, req.body, function(err, result) {
+
+              // Process Inmueble Photos first
+              try {
+                var body = processInmueblePhotos(req.params.inmueble_id, req.body);
+              } catch (err) {
+                res.status(500).json({"error": true, "message": "Error processing photos"});
+              }
+
+              Inmuebles.update(req.params.inmueble_id, body, function(err, result) {
                 if (err) {
                   if (err instanceof ValidationError) {
                     res.status(400).json({"error": true, "message": err.message});
@@ -170,7 +181,43 @@ router.all('/*', (req, res) => {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
+// HELPER FUNCTIONS
+var housePics = ['front', 'hall', 'bedroom', 'badroom', 'kitchen', 'kitcken_diningroom', 'diningroom',
+  'living', 'sink', 'tender', 'gallery', 'grill', 'gazebo', 'patio', 'hallway', 'garage'];
+// =============================================================================
+var processInmueblePhotos = function (inmuebleId, body) {
+
+  housePics.forEach(function (property) {
+    if (body.pics.hasOwnProperty(property) && body.pics[property].changed) {
+      InmueblesPhotos.upsert(inmuebleId, property, body.pics[property]);
+    }
+  });
+  delete body.pics;
+
+  return body;
+}
+
+var getInmueblePhotos = function (row) {
+  var emptyPic = {pic: null, obs: null};
+  var pics = {};
+  housePics.forEach(function (prop) {
+    pics[prop] = emptyPic;
+  });
+  var picsToProcess = row.pics.split(',');
+
+  picsToProcess.forEach(function(val) {
+    var fields = val.split('|');
+    var type = fields[0].split(':')[1];
+    pics[type] = {
+      pic: fields[1].split(':')[1],
+      obs: fields[2].split(':')[1]
+    };
+  });
+
+  return pics;
+}
+
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Inmo API listening on port ' + port);

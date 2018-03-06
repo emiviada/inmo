@@ -9,12 +9,12 @@
               General
             </a>
           </li>
-          <li class="nav-item panel2">
-            <a href="#panel2" class="nav-link" id="panel2-tab" data-toggle="tab" role="tab" aria-controls="panel2" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">Tab 2</a>
+          <li class="nav-item pictures">
+            <a href="#pictures" class="nav-link" id="pictures-tab" data-toggle="tab" role="tab" aria-controls="pictures" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">Fotos</a>
           </li>
-          <li class="nav-item services">
-            <a href="#services" class="nav-link" id="services-tab" data-toggle="tab" role="tab" aria-controls="services" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">
-              Servicios
+          <li class="nav-item artefacts">
+            <a href="#artefacts" class="nav-link" id="artefacts-tab" data-toggle="tab" role="tab" aria-controls="artefacts" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">
+              Instal./Artefactos
             </a>
           </li>
         </ul>
@@ -30,18 +30,17 @@
             </div>
           </div>
 
-          <div class="accordion-item toggleType tab-pane" id="panel2" role="tabpanel" aria-labelledby="panel2-tab">
-            <a href="#panel2" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Accordion 2</a>
+          <div class="accordion-item toggleType tab-pane" id="pictures" role="tabpanel" aria-labelledby="pictures-tab">
+            <a href="#pictures" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Fotos</a>
             <div class="tab-wrap accordion-content" >
-              <h4>Panel 2. Lorem ipsum dolor</h4>
-              <p>Commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+              <pictures-form :inmueble="inmueble" v-on:submit="onFormSave" />
             </div>
           </div>
 
-          <div class="accordion-item toggleType tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
-            <a href="#services" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Servicios</a>
+          <div class="accordion-item toggleType tab-pane" id="artefacts" role="tabpanel" aria-labelledby="artefacts-tab">
+            <a href="#artefacts" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Instal./Artefactos</a>
             <div class="tab-wrap accordion-content" >
-              <services-form :inmueble="inmueble" v-on:submit="onFormSave" />
+              <artefacts-form :inmueble="inmueble" v-on:submit="onFormSave" />
             </div>
           </div>
         </div>
@@ -55,12 +54,13 @@
 import { mapGetters, mapActions } from 'vuex'
 import VueNotifications from 'vue-notifications'
 import SaveInmuebleForm from './SaveInmuebleForm'
-import ServicesForm from './ServicesForm'
+import PicturesForm from './PicturesForm'
+import ArtefactsForm from './ArtefactsForm'
 
 export default {
   name: 'edit-inmueble',
   components: {
-    SaveInmuebleForm, ServicesForm
+    SaveInmuebleForm, PicturesForm, ArtefactsForm
   },
   data () {
     return {

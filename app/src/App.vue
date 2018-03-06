@@ -81,9 +81,10 @@ body {
 }
 
 h1, .h1 { font-size: 2rem; }
-a:focus, a:hover { text-decoration: none;color: inherit; }
+a:focus, a:hover, button:hover { text-decoration: none;color: inherit; }
 a:active, a:focus, a:visited,
 button:active, button:focus, button:visited { outline: none; }
+textarea:active, textarea:focus, textarea:visited { outline: none; }
 ul { padding-left: 0;list-style-type: none; }
 
 footer {
@@ -91,6 +92,11 @@ footer {
   background-color: #343a40;
   color: white;
   padding: 20px;
+}
+
+.subsection {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 3px;
 }
 
 .slideout-menu {

@@ -10,7 +10,7 @@
       <span v-show="errors.has('inmuebleType')" class="help is-danger">{{ errors.first('inmuebleType') }}</span>
     </div>
 
-    <h4>Ubicaci&oacute;n</h4>
+    <h4 class="subsection">Ubicaci&oacute;n</h4>
 
     <div class="form-row">
       <div class="form-group col-md-6">
