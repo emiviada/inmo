@@ -5,15 +5,15 @@
       <section class="tabs-to-accordions">
         <ul class="nav nav-tabs d-none d-md-block" id="edit-tabs" role="tablist">
           <li class="nav-item general">
-            <a href="#general" class="nav-link active" id="general-tab" data-toggle="tab" role="tab" aria-controls="general" aria-selected="true" v-on:click.prevent.stop="clickTab($event)">
+            <a href="#general" :class="{'nav-link': true, 'active': isActive('general') }" id="general-tab" data-toggle="tab" role="tab" aria-controls="general" aria-selected="true" v-on:click.prevent.stop="clickTab($event)">
               General
             </a>
           </li>
           <li class="nav-item pictures">
-            <a href="#pictures" class="nav-link" id="pictures-tab" data-toggle="tab" role="tab" aria-controls="pictures" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">Fotos</a>
+            <a href="#pictures" :class="{'nav-link': true, 'active': isActive('pictures') }" id="pictures-tab" data-toggle="tab" role="tab" aria-controls="pictures" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">Fotos</a>
           </li>
           <li class="nav-item artefacts">
-            <a href="#artefacts" class="nav-link" id="artefacts-tab" data-toggle="tab" role="tab" aria-controls="artefacts" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">
+            <a href="#artefacts" :class="{'nav-link': true, 'active': isActive('artefacts') }" id="artefacts-tab" data-toggle="tab" role="tab" aria-controls="artefacts" aria-selected="false" v-on:click.prevent.stop="clickTab($event)">
               Instal./Artefactos
             </a>
           </li>
@@ -21,7 +21,7 @@
 
         <div class="accordion tab-content tabs-mode" id="edit-tabs-content">
 
-          <div class="accordion-item toggleType tab-pane active" id="general" role="tabpanel" aria-labelledby="general-tab">
+          <div class="accordion-item toggleType tab-pane" :class="{'active': isActive('general') }" id="general" role="tabpanel" aria-labelledby="general-tab">
             <a href="#general" class="accordion-title d-md-none" v-on:click.stop.prevent="clickAccordion($event)">
               General
             </a>
@@ -30,14 +30,14 @@
             </div>
           </div>
 
-          <div class="accordion-item toggleType tab-pane" id="pictures" role="tabpanel" aria-labelledby="pictures-tab">
+          <div class="accordion-item toggleType tab-pane" :class="{'active': isActive('pictures') }" id="pictures" role="tabpanel" aria-labelledby="pictures-tab">
             <a href="#pictures" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Fotos</a>
             <div class="tab-wrap accordion-content" >
               <pictures-form :inmueble="inmueble" v-on:submit="onFormSave" />
             </div>
           </div>
 
-          <div class="accordion-item toggleType tab-pane" id="artefacts" role="tabpanel" aria-labelledby="artefacts-tab">
+          <div class="accordion-item toggleType tab-pane" :class="{'active': isActive('artefacts') }" id="artefacts" role="tabpanel" aria-labelledby="artefacts-tab">
             <a href="#artefacts" class="accordion-title d-md-none" data-toggle="tab" v-on:click.stop.prevent="clickAccordion($event)">Instal./Artefactos</a>
             <div class="tab-wrap accordion-content" >
               <artefacts-form :inmueble="inmueble" v-on:submit="onFormSave" />
@@ -136,6 +136,8 @@ export default {
 
         item.classList.add('active')
         item.querySelector('.tab-wrap').style.display = 'block'
+        // Add hashtag
+        window.location.hash = sharedId
         // tabs
         tabs.querySelector('.nav-item.' + sharedId + ' a').classList.add('active')
         tabs.querySelector('.nav-item a.active').setAttribute('aria-selected', 'true')
@@ -159,7 +161,13 @@ export default {
         item.setAttribute('aria-selected', 'true')
         tabToShow.classList.add('active')
         tabToShow.querySelector('.tab-wrap').style.display = 'block'
+        // Add hashtag
+        window.location.hash = sharedId
       }
+    },
+    isActive (tab) {
+      var hash = window.location.hash.substr(1)
+      return (tab === hash || (hash === '' && tab === 'general')) ? 'active' : ''
     }
   },
   notifications: {

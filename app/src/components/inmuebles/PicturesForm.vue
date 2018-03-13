@@ -2,7 +2,7 @@
   <form class="col-lg-10">
     <div class="form-row">
       <div class="form-group col-12 col-md-6" v-for="picture in pictures">
-        <inmueble-photo :inmueble="inmueble" :attr="picture.attr" :title="picture.title" />
+        <inmueble-photo :inmueble="inmueble" :attr="picture.attr" :title="picture.title" v-bind:id="picture.attr" />
       </div>
     </div>
 

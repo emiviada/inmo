@@ -35,3 +35,9 @@ export const provinces = {
   'tierra-del-fuego': 'Tierra del Fuego',
   'tucuman': 'Tucumán'
 }
+
+export const cloudinaryConfig = {
+  uploadPreset: 'uko8lel4',
+  apiKey: '712943953164839',
+  cloudName: 'dq2ghwy1m'
+}
