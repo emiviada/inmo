@@ -1,6 +1,7 @@
 <template>
   <div class="camera-modal">
     <video ref="video" class="camera-stream"/>
+    <canvas class="d-none" ref="canvas" width="320" height="240" />
     <div class="camera-modal-container">
       <span @click="capture" class="take-picture-button">
         <icon name="camera" class="align-middle" scale="2"></icon>
@@ -13,11 +14,16 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueNotifications from 'vue-notifications'
+import { cloudinaryConfig } from '@/common'
+
 export default {
   name: 'camera',
   props: ['item'],
   data () {
     return {
+      cloudinary: cloudinaryConfig,
       mediaStream: null
     }
   },
@@ -36,18 +42,36 @@ export default {
   },
   methods: {
     capture () {
-      this.$emit('taken', 'inmo/knahl4gzpakfevx6gjui')
-      /* const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
-      const imageCapture = new window.ImageCapture(mediaStreamTrack)
-      return imageCapture.takePhoto().then(blob => {
-        storage.ref().child(`images/picture-${new Date().getTime()}`).put(blob)
-          .then(res => {
-            this.postCat(res.metadata.downloadURLs[0], 'Hello')
-          })
-      }) */
+      var _this = this
+      var canvas = this.$refs.canvas
+      canvas.getContext('2d')
+        .drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height)
+      var img = canvas.toDataURL('image/png')
+      let loader = this.$loading.show()
+      const formData = new FormData()
+      formData.append('file', img)
+      formData.append('upload_preset', this.cloudinary.uploadPreset)
+      // formData.append('tags', 'tag1,tag2')
+      Vue.http.post(this.cloudinary.uploadUrl, formData)
+        .then((res) => {
+          this.$emit('taken', res.data.public_id)
+          loader.hide()
+        })
+        .catch((err) => {
+          console.log(err)
+          _this.notifyErrorUploading()
+          loader.hide()
+        })
     },
     cancel () {
       this.$emit('cancelled')
+    }
+  },
+  notifications: {
+    notifyErrorUploading: {
+      type: VueNotifications.types.error,
+      title: 'Error',
+      message: 'Hubo un error. Intentalo más tarde.'
     }
   }
 }

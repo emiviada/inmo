@@ -39,5 +39,6 @@ export const provinces = {
 export const cloudinaryConfig = {
   uploadPreset: 'uko8lel4',
   apiKey: '712943953164839',
-  cloudName: 'dq2ghwy1m'
+  cloudName: 'dq2ghwy1m',
+  uploadUrl: 'https://api.cloudinary.com/v1_1/dq2ghwy1m/upload'
 }

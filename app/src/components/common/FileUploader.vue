@@ -3,8 +3,10 @@
     <input type="file" class="form-cotrol d-none" name="file1" id="file1"
       @change="onFileSelected"
       ref="fileInput" accept="image/*">
-    <button type="button" class="btn btn-link btn-sm" @click="$refs.fileInput.click()">Subir foto</button> |
-    <button type="button" class="btn btn-link btn-sm" @click="enableCamera">Tomar foto</button>
+    <button type="button" class="btn btn-link btn-sm" @click="$refs.fileInput.click()">Subir foto</button>
+    <span v-if="userMediaSupported">|
+      <button type="button" class="btn btn-link btn-sm" @click="enableCamera">Tomar foto</button>
+    </span>
 
     <camera v-if="cameraOn" v-on:cancelled="onCancelled" v-on:taken="onTaken" />
   </div>
@@ -30,8 +32,8 @@ export default {
     }
   },
   computed: {
-    clUrl () {
-      return `https://api.cloudinary.com/v1_1/${this.cloudinary.cloudName}/upload`
+    userMediaSupported () {
+      return 'mediaDevices' in navigator
     }
   },
   methods: {
@@ -43,7 +45,7 @@ export default {
       formData.append('file', this.selectedFile)
       formData.append('upload_preset', this.cloudinary.uploadPreset)
       // formData.append('tags', 'tag1,tag2')
-      Vue.http.post(this.clUrl, formData)
+      Vue.http.post(this.cloudinary.uploadUrl, formData)
         .then((res) => {
           this.$emit('uploaded', this.item, res.data.public_id)
           loader.hide()
