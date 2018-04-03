@@ -1,3 +1,9 @@
+export const userRoles = {
+  'admin': 'Admin',
+  'inmo': 'Inmobiliaria',
+  'normal': 'Usuario Normal'
+}
+
 export const inmuebleTypes = {
   'casa': 'Casa',
   'depto': 'Departamento',

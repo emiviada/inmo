@@ -9,4 +9,4 @@ export const getInmueble = state => {
   }
 }
 
-export const getJustCreatedId = state => state.justCreatedId
+export const getInmuebleJustCreatedId = state => state.justCreatedId

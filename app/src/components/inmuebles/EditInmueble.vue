@@ -183,10 +183,9 @@ export default {
     }
   },
   mounted () {
-    var _this = this
     this.getInmueble(this.$route.params.id)
       .then((inmueble) => {
-        _this.inmueble = inmueble
+        this.inmueble = inmueble
       })
     window.addEventListener('resize', this.checkSize)
   },

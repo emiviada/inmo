@@ -24,3 +24,12 @@ CREATE TABLE IF NOT EXISTS `inmuebles_photos` (
     FOREIGN KEY (inmueble_id) REFERENCES inmuebles(id)
     ON DELETE CASCADE
 ) ENGINE = INNODB;
+
+-- 2018-03-19: Emiliano VIada
+CREATE TABLE IF NOT EXISTS `users` (
+    id INT AUTO_INCREMENT, first_name VARCHAR(255) DEFAULT NULL,
+    last_name VARCHAR(255) DEFAULT NULL, email VARCHAR(255) NOT NULL,
+    role VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL,
+    created_at DATETIME, updated_at DATETIME,
+    PRIMARY KEY(id)
+) ENGINE = INNODB;

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Agregar Inmueble</h1>
+    <h1>Agregar Usuario</h1>
     <div class="row">
-      <save-inmueble-form :inmueble="emptyInmueble" :mode="'add'" v-on:submit="onFormSave"/>
+      <save-user-form :user="emptyUser" :mode="'add'" v-on:submit="onFormSave"/>
     </div>
   </div>
 </template>
@@ -10,33 +10,41 @@
 <script>
 import { mapActions } from 'vuex'
 import VueNotifications from 'vue-notifications'
-import SaveInmuebleForm from './SaveInmuebleForm'
+import SaveUserForm from './SaveUserForm'
+
+var bcrypt = require('bcryptjs')
 
 const initialData = () => {
   return {
-    emptyInmueble: {
-      id: null,
-      type: null
+    emptyUser: {
+      first_name: null,
+      last_name: null,
+      email: null,
+      password: null
     }
   }
 }
 
 export default {
-  name: 'add-inmueble',
+  name: 'add-user',
   components: {
-    SaveInmuebleForm
+    SaveUserForm
   },
   data: initialData,
   methods: {
     ...mapActions([
-      'saveInmueble'
+      'saveUser'
     ]),
-    onFormSave (inmuebleData) {
-      this.saveInmueble(inmuebleData)
+    onFormSave (userData) {
+      delete userData.confirm_password
+      var saltRounds = 10
+      userData.password = bcrypt.hashSync(userData.password, saltRounds)
+      console.log(userData)
+      this.saveUser(userData)
         .then(() => {
           this.notifySuccessCreation()
-          let id = this.$store.getters.getInmuebleJustCreatedId
-          let route = (id) ? '/editar-inmueble/' + id : '/inmuebles'
+          let id = this.$store.getters.getUserJustCreatedId
+          let route = (id) ? '/editar-usuario/' + id : '/usuarios'
           this.$router.push(route)
         })
         .catch(() => this.notifyErrorCreation())
@@ -46,7 +54,7 @@ export default {
     notifySuccessCreation: {
       type: VueNotifications.types.success,
       title: 'Felicitaciones',
-      message: 'Inmueble creado con éxito'
+      message: 'Usuario creado con éxito'
     },
     notifyErrorCreation: {
       type: VueNotifications.types.error,

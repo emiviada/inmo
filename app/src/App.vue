@@ -43,7 +43,10 @@ const dictionary = {
   es: {
     messages: {
       required: () => 'Este campo es requerido.',
-      decimal: () => 'El valor es no válido.'
+      decimal: () => 'El valor no es válido.',
+      email: () => 'Debes ingresar una dirección de e-mail válida.',
+      confirmed: () => 'La confirmación no es la misma.',
+      min: () => 'Ingresa al menos 6 caracteres.'
     }
   }
 }
