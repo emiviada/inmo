@@ -174,6 +174,11 @@ router.route('/inmuebles')
       if (err) {
           res.status(500).json({"error": true, "message": "Error executing MySQL query"});
       } else {
+          if (rows.length) {
+            rows.forEach(function(row, i) {
+              rows[i].pics = getInmueblePhotos(row);
+            });
+          }
           res.json({"error": false, "message": "Success", "data" : rows});
       }
     });
@@ -309,16 +314,19 @@ var getInmueblePhotos = function (row) {
   housePics.forEach(function (prop) {
     pics[prop] = emptyPic;
   });
-  var picsToProcess = row.pics.split(',');
 
-  picsToProcess.forEach(function(val) {
-    var fields = val.split('|');
-    var type = fields[0].split(':')[1];
-    pics[type] = {
-      pic: fields[1].split(':')[1],
-      obs: fields[2].split(':')[1]
-    };
-  });
+  if (row.pics) {
+    var picsToProcess = row.pics.split(',');
+
+    picsToProcess.forEach(function(val) {
+      var fields = val.split('|');
+      var type = fields[0].split(':')[1];
+      pics[type] = {
+        pic: fields[1].split(':')[1],
+        obs: fields[2].split(':')[1]
+      };
+    });
+  }
 
   return pics;
 }

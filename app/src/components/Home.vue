@@ -1,17 +1,44 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <h1>Bienvenidos a Inmo App</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    <div class="container">
+      <div class="row">
+        <div v-for="inmueble in inmuebles" track-by="id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 pl-2 pr-2" @click="goToDetail(inmueble.id)">
+          <inmueble-thumb :inmueble="inmueble" />
+        </div>
+        <div v-if="inmuebles.length == 0" class="col-12">
+          <p>No existen Inmuebles.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import InmuebleThumb from './inmuebles/InmuebleThumb'
+
 export default {
   name: 'home',
+  components: {
+    InmuebleThumb
+  },
   data () {
-    return {
-      msg: 'Bienvenidos a Inmo App'
+    return {}
+  },
+  computed: {
+    ...mapGetters({
+      inmuebles: 'getInmuebles'
+    })
+  },
+  methods: {
+    goToDetail (inmuebleId) {
+      this.$router.push({ name: 'InmuebleDetail', params: { id: inmuebleId } })
     }
+  },
+  created () {
+    this.$store.dispatch('fetchInmuebles')
   }
 }
 </script>

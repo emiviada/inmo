@@ -14,6 +14,7 @@ import iziToast from 'izitoast' // https://github.com/dolce/iziToast
 import 'izitoast/dist/css/iziToast.min.css'
 import Loading from 'vue-loading-overlay' // https://github.com/ankurk91/vue-loading-overlay
 import 'vue-loading-overlay/dist/vue-loading.min.css'
+import VueAgile from 'vue-agile' // https://github.com/lukaszflorczak/vue-agile
 
 Vue.config.productionTip = false
 
@@ -23,6 +24,7 @@ Vue.use(VueResource)
 Vue.http.options.root = process.env.API_BASE_URL
 Vue.http.headers.common['Content-Type'] = 'application/json'
 Vue.use(VeeValidate)
+Vue.use(VueAgile)
 // Bootstrap
 Vue.use(BootstrapVue)
 Vue.use(Loading)

@@ -7,6 +7,7 @@ import EditUser from '@/components/users/EditUser'
 import InmueblesList from '@/components/inmuebles/InmueblesList'
 import AddInmueble from '@/components/inmuebles/AddInmueble'
 import EditInmueble from '@/components/inmuebles/EditInmueble'
+import InmuebleDetail from '@/components/inmuebles/InmuebleDetail'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/detalle/:id',
+      name: 'InmuebleDetail',
+      component: InmuebleDetail
     },
     {
       path: '/usuarios',

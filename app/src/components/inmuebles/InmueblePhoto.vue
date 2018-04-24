@@ -2,7 +2,7 @@
   <div v-if="attrExists">
     <p class="subsection mb-1">{{ title }}</p>
 
-    <cloudinary v-if="inmueble.pics[attr].pic" :public_id="inmueble.pics[attr].pic" :width="100" />
+    <cloudinary v-if="inmueble.pics[attr].pic" :public_id="inmueble.pics[attr].pic" :width="100" :crop="'scale'" />
 
     <file-uploader v-if="!inmueble.pics[attr].pic" :item="attr + 'Pic'" v-on:uploaded="onUploaded" />
 

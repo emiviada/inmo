@@ -62,7 +62,7 @@ export default {
 #menu ul li:first-child {
   border-top: 1px solid #eee;
 }
-#menu ul li:hover { background-color: #000; }
+#menu ul li:hover { opacity: .75; }
 #menu ul li a {
   color: white;
   text-decoration: none;

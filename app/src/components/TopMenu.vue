@@ -1,53 +1,31 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky=True>
-
-    <b-navbar-toggle target="nav_collapse" class="toggle-button"></b-navbar-toggle>
-
-    <b-navbar-brand to="/">Inmo App</b-navbar-brand>
-
-    <b-collapse is-nav id="nav_collapse">
-
-      <b-navbar-nav>
-        <b-nav-item to="/usuarios">Usuarios</b-nav-item>
-        <b-nav-item to="/inmuebles">Inmuebles</b-nav-item>
-        <!--<b-nav-item href="#" disabled>Disabled</b-nav-item>-->
-      </b-navbar-nav>
-
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Buscar"/>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
-        </b-nav-form>
-
-        <b-nav-item-dropdown right>
-          <!-- Using button-content slot -->
-          <template slot="button-content">
-            <icon name="user-circle" scale="2" class="align-middle"></icon>
-          </template>
-          <b-dropdown-item href="#">Mi Perfil</b-dropdown-item>
-          <b-dropdown-item href="#">Cerrar sesi&oacute;n</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-
-    </b-collapse>
-  </b-navbar>
+  <nav class="navbar navbar-dark bg-theme">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <router-link :to="'/'" class="navbar-brand">Inmo App</router-link>
+  </nav>
 </template>
 
 <script>
-import bNavbar from 'bootstrap-vue/es/components/navbar/navbar'
-
 export default {
-  name: 'top-menu',
-  components: {
-    'b-navbar': bNavbar
-  }
+  name: 'top-menu'
 }
 </script>
 
 <style>
-.navbar-dark .navbar-toggler { border-color: transparent !important; }
-#nav_collapse.collapsing, #nav_collapse.show { display: none !important; }
-.dropdown-toggle::after { border: none; }
+.navbar { color: #fff; }
+.navbar-toggler{
+  border: 0;
+  border-color: transparent;
+  cursor: pointer;
+}
+.navbar-toggler:focus{
+  outline: none;
+}
+.navbar-toggler-icon,
+.navbar-light .navbar-brand {
+  color: #fff;
+}
+.navbar-light .navbar-brand:hover { color: #ccc; }
 </style>
