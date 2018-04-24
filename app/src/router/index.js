@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Login from '@/components/security/Login'
 import UsersList from '@/components/users/UsersList'
 import AddUser from '@/components/users/AddUser'
 import EditUser from '@/components/users/EditUser'
@@ -18,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/detalle/:id',
