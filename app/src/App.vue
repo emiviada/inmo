@@ -36,7 +36,16 @@ export default {
   },
   computed: {
     isAuthenticated () {
-      return (this.$route.path.match('login')) ? false : true
+      let is = !(this.$route.path.match('login') || false)
+      let body = document.getElementsByTagName('body')
+      const className = 'bg-theme'
+      if (is) {
+        body[0].classList.remove(className)
+      } else {
+        body[0].classList.add(className)
+      }
+
+      return is
     }
   }
 }

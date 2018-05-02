@@ -33,3 +33,15 @@ CREATE TABLE IF NOT EXISTS `users` (
     created_at DATETIME, updated_at DATETIME,
     PRIMARY KEY(id)
 ) ENGINE = INNODB;
+
+-- 2018-04-24: Emiliano Viada
+CREATE TABLE IF NOT EXISTS `user_token` (
+    `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `expiration_date` datetime NOT NULL,
+    `updated_at` datetime NOT NULL,
+    `created_at` datetime NOT NULL,
+    INDEX user_ind (user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+) ENGINE = INNODB;

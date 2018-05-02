@@ -87,6 +87,14 @@ const Users = {
     query = mysql.format(query, table);
 
     return db.query(query, callback);
+  },
+
+  checkLogin: function(data, callback) {
+    var query = `${selectQuery} WHERE email = ? AND password = ?`,
+        params = [tableName, data.email, data.password];
+    query = mysql.format(query, params);
+
+    return db.query(query, callback);
   }
 };
 

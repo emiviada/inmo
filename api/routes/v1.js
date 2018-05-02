@@ -4,11 +4,17 @@ const router = express.Router();
 
 const UsersController = require('../controllers/UsersController');
 const InmueblesController = require('../controllers/InmueblesController');
+const SecurityController = require('../controllers/SecurityController');
 
 // test route to make sure everything is working (accessed at GET http://localhost:PORT/api)
 router.get('/', function(req, res) {
   res.json({ message: 'hooray! welcome to our api v1!' });
 });
+
+// ------------------- SECURITY ----------------------
+// Security routes
+// ----------------------------------------------------
+router.post('/login', SecurityController.login);
 
 // ------------------- USERS ----------------------
 // on routes that end in /users
