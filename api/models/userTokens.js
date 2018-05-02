@@ -29,6 +29,14 @@ const UserTokens = {
     query = mysql.format(query, params);
 
     return db.query(query, callback);
+  },
+
+  delete: function(token, callback) {
+    var query = "DELETE FROM ?? WHERE ?? = ?",
+        table = [tableName, "token", token];
+    query = mysql.format(query, table);
+
+    return db.query(query, callback);
   }
 };
 

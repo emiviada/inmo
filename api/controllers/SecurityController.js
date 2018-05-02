@@ -20,3 +20,15 @@ const login = function(req, res) {
   });
 }
 module.exports.login = login;
+
+const logout = function (req, res) {
+  let token = req.get('Authorization').replace('Bearer ', '');
+  UserTokens.delete(token, function(err, result) {
+    if (err) {
+      res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+    } else {
+      res.json({"error": false, "message": "Logged out."});
+    }
+  });
+}
+module.exports.logout = logout;

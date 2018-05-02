@@ -15,6 +15,7 @@ router.get('/', function(req, res) {
 // Security routes
 // ----------------------------------------------------
 router.post('/login', SecurityController.login);
+router.post('/logout', SecurityController.logout);
 
 // ------------------- USERS ----------------------
 // on routes that end in /users
