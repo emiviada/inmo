@@ -21,6 +21,14 @@ const UserTokens = {
     } catch (err) {
       return callback(err);
     }
+  },
+
+  getByToken: function(token, callback) {
+    var query = 'SELECT * FROM ?? WHERE token = ?';
+    var params = [tableName, token];
+    query = mysql.format(query, params);
+
+    return db.query(query, callback);
   }
 };
 
