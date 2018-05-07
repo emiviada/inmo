@@ -1,7 +1,7 @@
 // Authentication Middleware
 const UserTokens = require('../models/userTokens');
 
-const unsecureUrls = ['/api/login'];
+const unsecureUrls = ['/api/login', '/api/login/'];
 const auth = function (req, res, next) {
   let message = 'Unauthorized';
   if (unsecureUrls.indexOf(req.url) < 0) {

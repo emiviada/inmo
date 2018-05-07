@@ -20,10 +20,10 @@
 
     <ul class="logout">
       <li v-on:click="closeMenu">
-        <router-link to="/">
+        <a href="#" @click.prevent="signOut">
           <icon name="sign-out" class="align-middle"></icon>&nbsp;
           <span class="align-middle">Cerrar Sesi&oacute;n</span>
-        </router-link>
+        </a>
       </li>
     </ul>
   </nav>
@@ -35,6 +35,10 @@ export default {
   methods: {
     closeMenu: function () {
       this.$parent.slideout.toggle()
+    },
+    signOut () {
+      this.$store.dispatch('signOut')
+        .then(response => this.$router.push({name: 'Login'}))
     }
   }
 }

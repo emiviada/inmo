@@ -23,6 +23,10 @@ Vue.use(VueResource)
 // set the API root so we can use relative url's in our actions.
 Vue.http.options.root = process.env.API_BASE_URL
 Vue.http.headers.common['Content-Type'] = 'application/json'
+const inmoUser = JSON.parse(localStorage.getItem('inmo_user'))
+if (inmoUser && inmoUser.token) {
+  Vue.http.headers.common['Authorization'] = `Bearer ${inmoUser.token}`
+}
 Vue.use(VeeValidate)
 Vue.use(VueAgile)
 // Bootstrap

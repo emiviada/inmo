@@ -89,9 +89,9 @@ const Users = {
     return db.query(query, callback);
   },
 
-  checkLogin: function(data, callback) {
-    var query = `${selectQuery} WHERE email = ? AND password = ?`,
-        params = [tableName, data.email, data.password];
+  getByEmail: function(email, callback) {
+    var query = `${selectQuery.replace(', role', ', role, password')} WHERE email = ?`,
+        params = [tableName, email];
     query = mysql.format(query, params);
 
     return db.query(query, callback);

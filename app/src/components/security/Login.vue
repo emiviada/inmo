@@ -13,7 +13,7 @@
         <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
       </div>
       <div class="form-group text-right">
-        <button type="submit" v-on:click.prevent="onSubmit" :disabled="submitting" class="btn btn-info">
+        <button type="submit" v-on:click.prevent="onSubmit" :disabled="errors.any() || submitting" class="btn btn-info">
           Login
         </button>
       </div>
@@ -36,10 +36,20 @@ export default {
     validateBeforeSubmit () {
       this.$validator.validateAll().then((valid) => {
         if (valid) {
-          console.log('Send LOGIN')
+          const { email, password } = this
+          this.$store.dispatch('signIn', { email, password })
+            .then(response => {
+              if (response && response.status !== 200) {
+                let errorMsg = 'Credenciales incorrectas.'
+                this.$validator.errors.add('password', errorMsg)
+              } else {
+                this.$router.push({name: 'Home'})
+              }
+            }).finally(() => {
+              this.loader.hide()
+              this.submitting = false
+            })
         }
-        this.submitting = false
-        this.loader.hide()
       })
     },
     onSubmit () {
