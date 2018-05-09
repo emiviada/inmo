@@ -4,13 +4,13 @@
       <router-link to="/">Inmo App</router-link>
     </div>
     <ul>
-      <li v-on:click="closeMenu">
+      <li v-on:click="closeMenu" v-if="isAdmin">
         <router-link to="/usuarios">
           <icon name="users" class="align-middle"></icon>&nbsp;
           <span class="align-middle">Usuarios</span>
         </router-link>
       </li>
-      <li v-on:click="closeMenu">
+      <li v-on:click="closeMenu" v-if="isAdmin || isInmo">
         <router-link to="/inmuebles">
           <icon name="building" class="align-middle"></icon>&nbsp;
           <span class="align-middle">Inmuebles</span>
@@ -32,6 +32,14 @@
 <script>
 export default {
   name: 'sidebar-menu',
+  computed: {
+    isAdmin () {
+      return this.$store.state.security.user.role === 'admin'
+    },
+    isInmo () {
+      return this.$store.state.security.user.role === 'inmo'
+    }
+  },
   methods: {
     closeMenu: function () {
       this.$parent.slideout.toggle()

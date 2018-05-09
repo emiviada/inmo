@@ -6,13 +6,20 @@ var mysql = require('mysql'),
 /** Inmuebles' methods **/
 const tableName = "inmuebles";
 const Inmuebles = {
-  getAll: function(callback) {
-    var query = 'SELECT ??.*, '
+  getAll: function(userId, callback) {
+    let query = 'SELECT ??.*, '
       + 'GROUP_CONCAT(CONCAT("type:", inmuebles_photos.type, "|name:", inmuebles_photos.name, "|obs:", inmuebles_photos.obs)) as `pics`'
       + ' FROM ??'
-      + ' LEFT JOIN inmuebles_photos ON inmuebles.id = inmuebles_photos.inmueble_id'
-      + ' GROUP BY inmuebles.id;';
-    var table = [tableName, tableName];
+      + ' LEFT JOIN inmuebles_photos ON inmuebles.id = inmuebles_photos.inmueble_id';
+    let table = [tableName, tableName];
+
+    if (userId) {
+      query += ' WHERE inmuebles.user_id = ?';
+      table.push(userId);
+    }
+
+    query += ' GROUP BY inmuebles.id;';
+
     query = mysql.format(query, table);
 
     return db.query(query, callback);

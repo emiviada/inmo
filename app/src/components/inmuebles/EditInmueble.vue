@@ -180,12 +180,23 @@ export default {
       type: VueNotifications.types.error,
       title: 'Error',
       message: 'Intentalo más tarde.'
+    },
+    notifyWarningForbidden: {
+      type: VueNotifications.types.warn,
+      title: 'Error',
+      message: 'No tienes permiso para realizar tal acción.'
     }
   },
   mounted () {
-    this.getInmueble(this.$route.params.id)
+    this.getInmueble(this.$route.params.id, 1)
       .then((inmueble) => {
         this.inmueble = inmueble
+      })
+      .catch((err) => {
+        if (err.status === 403) {
+          this.notifyWarningForbidden()
+          this.$router.push({ name: 'InmueblesList' })
+        }
       })
     window.addEventListener('resize', this.checkSize)
   },

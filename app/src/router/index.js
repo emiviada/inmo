@@ -21,11 +21,25 @@ const ifNotAuthenticated = (to, from, next) => {
   }
   next('/')
 }
+const hasRightRole = (to, role) => {
+  let has = false
+  if (role === 'normal' && to.meta.normal) {
+    has = true
+  } else if (role === 'inmo' && to.meta.inmo) {
+    has = true
+  } else if (role === 'admin' && to.meta.admin) {
+    has = true
+  }
 
+  return has
+}
 const ifAuthenticated = (to, from, next) => {
   if (store.getters.isAuthenticated) {
-    next()
-    return
+    let role = store.state.security.user.role
+    if (hasRightRole(to, role)) {
+      next()
+      return
+    }
   }
   next('/login')
 }
@@ -37,7 +51,8 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: true, inmo: true, admin: true }
     },
     {
       path: '/login',
@@ -49,43 +64,50 @@ export default new Router({
       path: '/detalle/:id',
       name: 'InmuebleDetail',
       component: InmuebleDetail,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: true, inmo: true, admin: true }
     },
     {
       path: '/usuarios',
       name: 'UsersList',
       component: UsersList,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: false, admin: true }
     },
     {
       path: '/agregar-usuario',
       name: 'AddUser',
       component: AddUser,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: false, admin: true }
     },
     {
       path: '/editar-usuario/:id',
       name: 'EditUser',
       component: EditUser,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: false, admin: true }
     },
     {
       path: '/inmuebles',
       name: 'InmueblesList',
       component: InmueblesList,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
     },
     {
       path: '/agregar-inmueble',
       name: 'AddInmueble',
       component: AddInmueble,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
     },
     {
       path: '/editar-inmueble/:id',
       name: 'EditInmueble',
       component: EditInmueble,
-      beforeEnter: ifAuthenticated
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
     }
   ]
 })

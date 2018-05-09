@@ -1,6 +1,7 @@
 -- 2018-01-08: Emiliano Viada
 CREATE TABLE IF NOT EXISTS `inmuebles` (
     id INT AUTO_INCREMENT, type VARCHAR(100) NOT NULL,
+    user_id INT NOT NULL,
     street TEXT, neighborhood VARCHAR(255) DEFAULT NULL,
     city VARCHAR(255), state VARCHAR(100), area_front FLOAT NOT NULL DEFAULT 0,
     area_back FLOAT NOT NULL DEFAULT 0, area_built FLOAT NOT NULL DEFAULT 0,
@@ -14,15 +15,16 @@ CREATE TABLE IF NOT EXISTS `inmuebles` (
     kitchen_furniture TINYINT(1) NOT NULL DEFAULT 0, placard TINYINT(1) NOT NULL DEFAULT 0,
     campana TINYINT(1) NOT NULL DEFAULT 0,
     created_at DATETIME, updated_at DATETIME,
-    PRIMARY KEY(id)) ENGINE = INNODB;
+    PRIMARY KEY(id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE = INNODB;
 
 -- 2018-02-28: Emiliano Viada
 CREATE TABLE IF NOT EXISTS `inmuebles_photos` (
     inmueble_id INT, type VARCHAR(100) NOT NULL,
     name VARCHAR(255) NOT NULL, obs VARCHAR(255) NULL DEFAULT NULL,
     INDEX inm_ind (inmueble_id),
-    FOREIGN KEY (inmueble_id) REFERENCES inmuebles(id)
-    ON DELETE CASCADE
+    FOREIGN KEY (inmueble_id) REFERENCES inmuebles(id) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- 2018-03-19: Emiliano VIada

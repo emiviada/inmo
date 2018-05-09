@@ -1,7 +1,7 @@
+user = null;
+
 housePics = ['front', 'hall', 'bedroom', 'badroom', 'kitchen', 'kitcken_diningroom', 'diningroom',
   'living', 'sink', 'tender', 'gallery', 'grill', 'gazebo', 'patio', 'hallway', 'garage'];
-
-// =============================================================================
 
 processInmueblePhotos = function (inmuebleId, body) {
 

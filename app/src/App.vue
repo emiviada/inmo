@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { Validator } from 'vee-validate'
@@ -47,6 +48,17 @@ export default {
 
       return is
     }
+  },
+  created () {
+    // Interceptor to sign the user out when we receive a 401 from API
+    Vue.http.interceptors.push((req, next) => {
+      next(res => {
+        if (res.status === 401) {
+          this.$store.dispatch('signOut')
+            .then(response => this.$router.push({name: 'Login'}))
+        }
+      })
+    })
   }
 }
 </script>

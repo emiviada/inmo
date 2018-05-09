@@ -12,6 +12,11 @@ export function fetchInmuebles ({ commit }) {
     .then((response) => commit(FETCH_INMUEBLES, response.body.data))
 }
 
+export function fetchMyInmuebles ({ commit }) {
+  return Vue.http.get('inmuebles/mine')
+    .then((response) => commit(FETCH_INMUEBLES, response.body.data))
+}
+
 export function createInmueble ({ commit }, inmueble) {
   return Vue.http.post('inmuebles/', inmueble)
     .then((response) => commit(CREATE_INMUEBLE, response))

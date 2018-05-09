@@ -44,6 +44,8 @@ router.route('/inmuebles')
   .get(InmueblesController.getAll)
   // Create an inmueble (accessed at POST /api/inmuebles)
   .post(InmueblesController.create);
+// To get logged in user inmubeles
+router.get('/inmuebles/mine', InmueblesController.getAllMine);
 // on routes that end in /inmuebles/:inmueble_id
 // ----------------------------------------------------
 router.route('/inmuebles/:inmueble_id')

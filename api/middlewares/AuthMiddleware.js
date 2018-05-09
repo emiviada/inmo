@@ -1,7 +1,8 @@
 // Authentication Middleware
+const Users = require('../models/users');
 const UserTokens = require('../models/userTokens');
 
-const unsecureUrls = ['/api/login', '/api/login/'];
+const unsecureUrls = ['/api/login', '/api/login/', '/api/logout', '/api/logout/'];
 const auth = function (req, res, next) {
   let message = 'Unauthorized';
   if (unsecureUrls.indexOf(req.url) < 0) {
@@ -20,7 +21,15 @@ const auth = function (req, res, next) {
               message += ': token has expired';
               res.status(401).json({"error": true, "message": message});
             } else {
-              next();
+              Users.getByToken(token, function (err, rows) {
+                if (!err && rows.length) {
+                  user = rows[0];
+                  next();
+                } else {
+                  message += ': User Not Found';
+                  res.status(401).json({"error": true, "message": message});
+                }
+              });
             }
           } else {
             message += ': Invalid token';

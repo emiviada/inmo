@@ -95,6 +95,14 @@ const Users = {
     query = mysql.format(query, params);
 
     return db.query(query, callback);
+  },
+
+  getByToken: function(token, callback) {
+    let query = 'SELECT u.* FROM ?? AS u LEFT JOIN ?? AS t ON t.user_id = u.id WHERE t.token = ?;',
+        params = [tableName, 'user_token', token];
+    query = mysql.format(query, params);
+
+    return db.query(query, callback);
   }
 };
 

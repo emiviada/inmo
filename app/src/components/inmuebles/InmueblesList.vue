@@ -101,7 +101,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('fetchInmuebles')
+    this.$store.dispatch('fetchMyInmuebles')
   },
   notifications: {
     notifySuccessDeletion: {
