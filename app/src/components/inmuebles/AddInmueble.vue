@@ -32,6 +32,7 @@ export default {
       'saveInmueble'
     ]),
     onFormSave (inmuebleData) {
+      inmuebleData.user_id = this.$store.getters.getLoggedInUser.id
       this.saveInmueble(inmuebleData)
         .then(() => {
           this.notifySuccessCreation()

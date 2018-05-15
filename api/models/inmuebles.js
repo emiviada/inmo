@@ -106,11 +106,11 @@ const Inmuebles = {
 
 // Validate data
 function validate(mode, data) {
-  let allowed = ['type', 'street', 'neighborhood', 'city', 'state', 'area_front', 'area_back',
+  let allowed = ['user_id', 'type', 'street', 'neighborhood', 'city', 'state', 'area_front', 'area_back',
     'area_built', 'water', 'electricity', 'gas', 'streetlight', 'cord', 'pavement', 'kitchen',
     'water_heater', 'inmersion_heater', 'air_conditioner', 'heater', 'fan', 'central_heater',
     'alarm', 'kitchen_furniture', 'placard', 'campana'],
-    required = ['type'];
+    required = ['user_id', 'type'];
 
   // First check allowed fields
   for (var prop in data) {
