@@ -1,7 +1,7 @@
 <template>
   <nav id="menu">
     <div class="title" v-on:click="closeMenu">
-      <router-link to="/">Inmo App</router-link>
+      <router-link to="/">Inmo Web</router-link>
     </div>
     <ul>
       <li v-on:click="closeMenu" v-if="isAdmin">

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import store from '../vuex/store'
-import Home from '@/components/Home'
+import Home from '@/components/home/Home'
 import Login from '@/components/security/Login'
 import UsersList from '@/components/users/UsersList'
 import AddUser from '@/components/users/AddUser'

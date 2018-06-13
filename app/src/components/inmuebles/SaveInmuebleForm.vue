@@ -10,6 +10,15 @@
       <span v-show="errors.has('inmuebleType')" class="help is-danger">{{ errors.first('inmuebleType') }}</span>
     </div>
 
+    <div class="form-group">
+      <label for="inmuebleOperation">Operaci&oacute;n</label>
+      <select v-model="inmueble.operation" v-validate="'required'" :class="{'form-control': true, 'is-danger': errors.has('inmuebleOperation') }" id="inmuebleOperation" name="inmuebleOperation">
+        <option value="">---</option>
+        <option v-for="(operation, index) in operations" v-bind:value="index">{{ operation }}</option>
+      </select>
+      <span v-show="errors.has('inmuebleOperation')" class="help is-danger">{{ errors.first('inmuebleOperation') }}</span>
+    </div>
+
     <h4 class="subsection">Ubicaci&oacute;n</h4>
 
     <div class="form-row">
@@ -51,7 +60,7 @@
 </template>
 
 <script>
-import { inmuebleTypes, provinces } from '../../common'
+import { inmuebleTypes, operations, provinces } from '../../common'
 import EditGeneralForm from './EditGeneralForm'
 
 export default {
@@ -63,6 +72,7 @@ export default {
   data () {
     return {
       types: inmuebleTypes,
+      operations: operations,
       provinces: provinces,
       submitting: false
     }

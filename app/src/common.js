@@ -16,6 +16,11 @@ export const inmuebleTypes = {
   'fondo': 'Fondo de Comercio'
 }
 
+export const operations = {
+  'venta': 'Venta',
+  'alquiler': 'Alquiler'
+}
+
 export const provinces = {
   'buenos-aires': 'Buenos Aires',
   'catamarca': 'Catamarca',

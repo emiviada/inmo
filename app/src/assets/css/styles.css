@@ -19,23 +19,22 @@ button:active, button:focus, button:visited { outline: none; }
 textarea:active, textarea:focus, textarea:visited { outline: none; }
 ul { padding-left: 0;list-style-type: none; }
 
-.bg-theme { background-color: #557a95; }
+.bg-theme { background-color: #009688; }
 .bg-white { background-color: #fff; }
 footer {
   width: 100%;
   /*background-color: #343a40;*/
-  background-color: #557a95;
+  background-color: #009688;
   color: #fff;
   padding: 20px;
   position: absolute;
   bottom: 0;
 }
-
 .subsection {
   border-bottom: 1px solid #ddd;
   padding-bottom: 3px;
 }
-
+.bg-subsection { background-color: #00796B; }
 .slideout-menu {
   position: fixed;
   top: 0;
@@ -47,7 +46,7 @@ footer {
   z-index: 0;
   display: none;
   /*background-color: #343a40;*/
-  background-color: #557a95;
+  background-color: #009688;
   color: white;
 }
 

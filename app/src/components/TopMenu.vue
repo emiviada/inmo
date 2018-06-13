@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <router-link :to="'/'" class="navbar-brand">Inmo App</router-link>
+    <router-link :to="'/'" class="navbar-brand">Inmo Web</router-link>
   </nav>
 </template>
 

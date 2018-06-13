@@ -1,6 +1,6 @@
 <template>
   <div class="login bg-white rounded px-3 py-3 mx-auto mt-5">
-    <h1 class="text-center">Inmo App</h1>
+    <h1 class="text-center">Inmo Web</h1>
     <form class="mt-3">
       <div class="form-group">
         <label for="email">Direcci&oacute;n de E-mail</label>
