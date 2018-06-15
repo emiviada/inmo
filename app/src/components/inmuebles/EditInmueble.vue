@@ -70,7 +70,7 @@ export default {
   computed: mapGetters(['getInmueble']),
   methods: {
     ...mapActions([
-      'saveInmueble'
+      'saveInmueble', 'showGoBack'
     ]),
     onFormSave (inmuebleData) {
       var _this = this
@@ -188,6 +188,7 @@ export default {
     }
   },
   mounted () {
+    this.showGoBack()
     this.getInmueble(this.$route.params.id, 1)
       .then((inmueble) => {
         this.inmueble = inmueble

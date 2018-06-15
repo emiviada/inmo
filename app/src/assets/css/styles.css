@@ -12,7 +12,7 @@ body {
   background-color: #dadada;
 }
 
-h1, .h1 { font-size: 2rem; }
+h1, .h1 { font-size: 1.5rem; }
 a:focus, a:hover, button:hover { text-decoration: none;color: inherit; }
 a:active, a:focus, a:visited,
 button:active, button:focus, button:visited { outline: none; }

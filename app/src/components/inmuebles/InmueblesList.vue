@@ -4,18 +4,21 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Tipo de Inmueble</th>
+          <th scope="col"><span class="d-none d-sm-table-cell">Tipo de </span>Inmueble</th>
           <th scope="col" class="d-none d-sm-table-cell">Ubicaci&oacute;n</th>
-          <th scope="col">Provincia</th>
+          <th scope="col" class="d-none d-sm-table-cell">Provincia</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="inmueble in inmuebles" track-by="id">
-          <td>{{getInmuebleType(inmueble.type)}}</td>
+          <td>
+            <span class="d-block">{{ getInmuebleType(inmueble.type) }}</span>
+            <span class="d-block d-sm-none text-muted">{{ getInmuebleLocation(inmueble) }}</span>
+          </td>
           <td class="d-none d-sm-table-cell">{{inmueble.street}}</td>
-          <td>{{getInmuebleState(inmueble.state)}}</td>
+          <td class="d-none d-sm-table-cell">{{getInmuebleState(inmueble.state)}}</td>
           <td>
             <router-link :to="{ name: 'EditInmueble', params: { id: inmueble.id } }">
               <icon name="pencil"></icon>
@@ -98,6 +101,13 @@ export default {
     },
     getInmuebleState (inmuebleState) {
       return provinces[inmuebleState]
+    },
+    getInmuebleLocation (inmueble) {
+      let location = ''
+      location += inmueble.city ? inmueble.city : ''
+      location += location !== '' && inmueble.state ? ', ' : ''
+      location += inmueble.state ? provinces[inmueble.state] : ''
+      return location
     }
   },
   created () {

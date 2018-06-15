@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { Utils } from '@/mixins/Utils'
 import Slider from '@/components/common/Slider'
 import InmuebleDetailArea from './InmuebleDetailArea'
@@ -48,7 +48,13 @@ export default {
     }
   },
   computed: mapGetters(['getInmueble']),
+  methods: {
+    ...mapActions([
+      'showGoBack'
+    ])
+  },
   mounted () {
+    this.showGoBack()
     this.getInmueble(this.$route.params.id)
       .then((inmueble) => {
         this.inmueble = inmueble

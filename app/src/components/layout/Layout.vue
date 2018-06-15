@@ -7,6 +7,7 @@
     <main id="panel">
 
       <top-menu/>
+      <go-back />
 
       <div class="container main-content">
         <router-view/>
@@ -23,6 +24,7 @@
 import Slideout from 'vue-slideout'
 import SidebarMenu from '@/components/SidebarMenu'
 import TopMenu from '@/components/TopMenu'
+import GoBack from '@/components/layout/GoBack'
 import LayoutFooter from '@/components/layout/LayoutFooter'
 
 export default {
@@ -31,6 +33,7 @@ export default {
     Slideout,
     SidebarMenu,
     TopMenu,
+    GoBack,
     LayoutFooter
   },
   methods: {

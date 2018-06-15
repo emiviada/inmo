@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'saveUser'
+      'saveUser', 'showGoBack'
     ]),
     onFormSave (userData) {
       this.saveUser(userData)
@@ -47,6 +47,7 @@ export default {
     }
   },
   created () {
+    this.showGoBack()
     this.$store.dispatch('fetchUser', this.$route.params.id)
   },
   mounted () {
