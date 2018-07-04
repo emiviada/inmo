@@ -1,6 +1,9 @@
 {
   "name": "inmo-api",
   "main": "server.js",
+  "description": "API for inmowebapp",
+  "author": "Emiliano Viada <emjovi@gmail.com>",
+  "private": true,
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.18.2",

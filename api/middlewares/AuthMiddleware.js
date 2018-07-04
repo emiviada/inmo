@@ -2,7 +2,7 @@
 const Users = require('../models/users');
 const UserTokens = require('../models/userTokens');
 
-const unsecureUrls = ['/api/login', '/api/login/', '/api/logout', '/api/logout/'];
+const unsecureUrls = ['/login', '/login/', '/logout', '/logout/'];
 const auth = function (req, res, next) {
   let message = 'Unauthorized';
   if (unsecureUrls.indexOf(req.url) < 0) {
