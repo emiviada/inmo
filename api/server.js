@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', v1);
+app.use('/', v1);
 
 // START THE SERVER
 // =============================================================================
