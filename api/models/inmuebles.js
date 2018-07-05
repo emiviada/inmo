@@ -109,7 +109,7 @@ function validate(mode, data) {
   let allowed = ['user_id', 'type', 'operation', 'street', 'neighborhood', 'city', 'state', 'area_front',
     'area_back', 'area_built', 'water', 'electricity', 'gas', 'streetlight', 'cord', 'pavement', 'kitchen',
     'water_heater', 'inmersion_heater', 'air_conditioner', 'heater', 'fan', 'central_heater',
-    'alarm', 'kitchen_furniture', 'placard', 'campana'],
+    'alarm', 'kitchen_furniture', 'placard', 'campana', 'pics'],
     required = ['user_id', 'type', 'operation'];
 
   // First check allowed fields

@@ -1,3 +1,5 @@
+const InmueblesPhotos = require('./models/inmueblesPhotos');
+
 user = null;
 
 housePics = ['front', 'hall', 'bedroom', 'badroom', 'kitchen', 'kitcken_diningroom', 'diningroom',
