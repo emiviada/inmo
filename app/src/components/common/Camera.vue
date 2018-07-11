@@ -52,6 +52,8 @@ export default {
       formData.append('file', img)
       formData.append('upload_preset', this.cloudinary.uploadPreset)
       // formData.append('tags', 'tag1,tag2')
+      let authHeader = Vue.http.headers.common['Authorization']
+      delete Vue.http.headers.common['Authorization']
       Vue.http.post(this.cloudinary.uploadUrl, formData)
         .then((res) => {
           this.$emit('taken', res.data.public_id)
@@ -62,6 +64,7 @@ export default {
           _this.notifyErrorUploading()
           loader.hide()
         })
+      Vue.http.headers.common['Authorization'] = authHeader
     },
     cancel () {
       this.$emit('cancelled')
