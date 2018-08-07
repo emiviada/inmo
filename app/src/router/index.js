@@ -11,6 +11,9 @@ import InmueblesList from '@/components/inmuebles/InmueblesList'
 import AddInmueble from '@/components/inmuebles/AddInmueble'
 import EditInmueble from '@/components/inmuebles/EditInmueble'
 import InmuebleDetail from '@/components/inmuebles/InmuebleDetail'
+import InterestedList from '@/components/interested/InterestedList'
+import AddInterested from '@/components/interested/AddInterested'
+import EditInterested from '@/components/interested/EditInterested'
 
 Vue.use(Router)
 
@@ -106,6 +109,27 @@ export default new Router({
       path: '/editar-inmueble/:id',
       name: 'EditInmueble',
       component: EditInmueble,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/interesados',
+      name: 'InterestedList',
+      component: InterestedList,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/agregar-interesado',
+      name: 'InterestedAdd',
+      component: AddInterested,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/editar-interesado/:id',
+      name: 'InterestedEdit',
+      component: EditInterested,
       beforeEnter: ifAuthenticated,
       meta: { normal: false, inmo: true, admin: true }
     }

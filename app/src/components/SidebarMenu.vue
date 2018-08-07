@@ -5,15 +5,21 @@
     </div>
     <ul>
       <li v-on:click="closeMenu" v-if="isAdmin">
-        <router-link to="/usuarios">
+        <router-link :to="{ name: 'UsersList' }">
           <icon name="users" class="align-middle"></icon>&nbsp;
           <span class="align-middle">Usuarios</span>
         </router-link>
       </li>
       <li v-on:click="closeMenu" v-if="isAdmin || isInmo">
-        <router-link to="/inmuebles">
+        <router-link :to="{ name: 'InmueblesList' }">
           <icon name="building" class="align-middle"></icon>&nbsp;
           <span class="align-middle">Inmuebles</span>
+        </router-link>
+      </li>
+      <li v-on:click="closeMenu" v-if="isAdmin || isInmo">
+        <router-link :to="{ name: 'InterestedList' }">
+          <icon name="users" class="align-middle"></icon>&nbsp;
+          <span class="align-middle">Interesados</span>
         </router-link>
       </li>
     </ul>
