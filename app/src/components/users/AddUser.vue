@@ -39,7 +39,6 @@ export default {
       delete userData.confirm_password
       var saltRounds = 10
       userData.password = bcrypt.hashSync(userData.password, saltRounds)
-      console.log(userData)
       this.saveUser(userData)
         .then(() => {
           this.notifySuccessCreation()

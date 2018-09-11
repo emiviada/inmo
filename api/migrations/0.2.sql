@@ -10,3 +10,16 @@ CREATE TABLE IF NOT EXISTS `interested` (
     PRIMARY KEY(id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE = INNODB;
+
+-- 2018-08-13: Emiliano Viada
+CREATE TABLE IF NOT EXISTS `user_profile` (
+    user_id INT NOT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+    phone VARCHAR(50) DEFAULT NULL,
+    web VARCHAR(255) DEFAULT NULL,
+    facebook VARCHAR(255) DEFAULT NULL,
+    instagram VARCHAR(255) DEFAULT NULL,
+    twitter VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE = INNODB;

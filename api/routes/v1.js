@@ -26,6 +26,9 @@ router.route('/users')
   .get(UsersController.getAll)
   // Create an user (accessed at POST /api/users)
   .post(UsersController.create);
+// Profile urls
+router.get('/users/profile', UsersController.getProfile)
+router.put('/users/profile', UsersController.updateProfile)
 // on routes that end in /users/:user_id
 // ----------------------------------------------------
 router.route('/users/:user_id')

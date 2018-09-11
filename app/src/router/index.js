@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import store from '../vuex/store'
 import Home from '@/components/home/Home'
 import Login from '@/components/security/Login'
+import MyProfile from '@/components/security/MyProfile'
 import UsersList from '@/components/users/UsersList'
 import AddUser from '@/components/users/AddUser'
 import EditUser from '@/components/users/EditUser'
@@ -62,6 +63,13 @@ export default new Router({
       name: 'Login',
       component: Login,
       beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: '/mi-perfil',
+      name: 'MyProfile',
+      component: MyProfile,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: true, inmo: true, admin: true }
     },
     {
       path: '/detalle/:id',

@@ -4,11 +4,11 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="userFirstName">Nombre</label>
-        <input type="text" class="form-control" v-model="user.first_name" id="userFirstName" >
+        <input type="text" class="form-control" v-model="user.first_name" id="userFirstName" />
       </div>
       <div class="form-group col-md-6">
         <label for="userLastName">Apellido</label>
-        <input type="text" class="form-control" v-model="user.last_name" id="userLastName" ></textarea>
+        <input type="text" class="form-control" v-model="user.last_name" id="userLastName" />
       </div>
     </div>
 

@@ -38,9 +38,13 @@ const create = function(req, res) {
         res.status(500).json({"error": true, "message": "Error executing MySQL query"});
       }
     } else {
-      var locationUrl = '/api/users/' + result.insertId;
-      res.set('Location', locationUrl);
-      res.json({"error": false, "message": "User created."});
+      // Also, create user profile
+      let userId = result.insertId;
+      Users.createProfile(userId, function (err, result) {
+        var locationUrl = '/api/users/' + userId;
+        res.set('Location', locationUrl);
+        res.json({"error": false, "message": "User created."});
+      });
     }
   });
 }
@@ -96,3 +100,39 @@ const remove = function(req, res) {
   });
 }
 module.exports.remove = remove;
+
+// Profile
+const getProfile = function(req, res) {
+  Users.getProfile(function(err, rows) {
+    if (err) {
+      res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+    } else {
+      if (rows.length) {
+        var row = rows[0];
+        res.json({"error": false, "message": "Success", "data": row});
+      } else {
+        res.status(404).json({"error": true, "message": "Not Found"});
+      }
+    }
+  });
+}
+module.exports.getProfile = getProfile;
+
+const updateProfile = function(req, res) {
+  Users.updateProfile(req.body, function(err, rows) {
+    if (err) {
+      res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+    } else {
+      if (err) {
+        if (err instanceof ValidationError) {
+          res.status(400).json({"error": true, "message": err.message});
+        } else {
+          res.status(500).json({"error": true, "message": "Error executing MySQL query"});
+        }
+      } else {
+        res.json({"error": false, "message": "Profile updated."});
+      }
+    }
+  });
+}
+module.exports.updateProfile = updateProfile;

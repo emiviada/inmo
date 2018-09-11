@@ -89,6 +89,40 @@ const Users = {
     return db.query(query, callback);
   },
 
+  createProfile: function(userId, callback) {
+    var query = "INSERT INTO ?? (user_id) VALUES (?)",
+        table = ["user_profile", userId];
+    query = mysql.format(query, table);
+
+    return db.query(query, callback);
+  },
+
+  getProfile: function(callback) {
+    var query = "SELECT address, phone, web, facebook, instagram, twitter from ?? WHERE ?? = ?";
+    var table = ["user_profile", "user_id", user.id];
+    query = mysql.format(query, table);
+
+    return db.query(query, callback);
+  },
+
+  updateProfile: function(data, callback) {
+    var query = "UPDATE ?? SET ",
+        table = ["user_profile"];
+
+    for (var prop in data) {
+      if (data.hasOwnProperty(prop)) {
+        query += "?? = ?, ";
+        table.push(prop, data[prop]);
+      }
+    }
+    query = query.substr(0, query.length-2);
+    query += " WHERE ?? = ?";
+    table.push("user_id", user.id);
+    query = mysql.format(query, table);
+
+    return db.query(query, callback);
+  },
+
   getByEmail: function(email, callback) {
     var query = `${selectQuery.replace(', role', ', role, password')} WHERE email = ?`,
         params = [tableName, email];

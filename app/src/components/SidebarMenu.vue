@@ -22,6 +22,12 @@
           <span class="align-middle">Interesados</span>
         </router-link>
       </li>
+      <li v-on:click="closeMenu" v-if="isAdmin || isInmo">
+        <router-link :to="{ name: 'MyProfile' }">
+          <icon name="user" class="align-middle"></icon>&nbsp;
+          <span class="align-middle">Mi Perfil</span>
+        </router-link>
+      </li>
     </ul>
 
     <ul class="logout">
