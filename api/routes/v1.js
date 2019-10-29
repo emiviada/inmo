@@ -5,6 +5,7 @@ const router = express.Router();
 const UsersController = require('../controllers/UsersController');
 const InmueblesController = require('../controllers/InmueblesController');
 const SecurityController = require('../controllers/SecurityController');
+const InterestedController = require('../controllers/InterestedController');
 
 // test route to make sure everything is working (accessed at GET http://localhost:PORT/api)
 router.get('/', function(req, res) {
@@ -25,6 +26,9 @@ router.route('/users')
   .get(UsersController.getAll)
   // Create an user (accessed at POST /api/users)
   .post(UsersController.create);
+// Profile urls
+router.get('/users/profile', UsersController.getProfile)
+router.put('/users/profile', UsersController.updateProfile)
 // on routes that end in /users/:user_id
 // ----------------------------------------------------
 router.route('/users/:user_id')
@@ -55,6 +59,27 @@ router.route('/inmuebles/:inmueble_id')
   .put(InmueblesController.update)
   // Delete the inmueble with that id (accessed at DELETE /api/inmuebles/:inmueble_id)
   .delete(InmueblesController.remove);
+
+
+// ------------------- INTERESTED ----------------------
+// on routes that end in /interested
+// ----------------------------------------------------
+router.route('/interested')
+  // get all the interested clients (accessed at GET /api/interested)
+  // .get(InterestedController.getAll)
+  // Create an interested client (accessed at POST /api/interested)
+  .post(InterestedController.create);
+// To get logged in user interested
+router.get('/interested/mine', InterestedController.getAllMine);
+// on routes that end in /interested/:interested_id
+// ----------------------------------------------------
+router.route('/interested/:interested_id')
+  // GET the interested client with that id (accessed at GET /api/interested/:interested_id)
+  .get(InterestedController.getOne)
+  // PUT (Update) the interested client with that id (accessed at PUT /api/interested/:interested_id)
+  .put(InterestedController.update)
+  // Delete the interested client with that id (accessed at DELETE /api/interested/:interested_id)
+  .delete(InterestedController.remove);
 
 // Handle all other routes
 // ----------------------------------------------------

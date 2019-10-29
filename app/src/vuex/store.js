@@ -5,6 +5,7 @@ import security from './modules/security'
 import common from './modules/common'
 import users from './modules/users'
 import inmuebles from './modules/inmuebles'
+import interested from './modules/interested'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
     security,
     common,
     users,
-    inmuebles
+    inmuebles,
+    interested
   },
   strict: debug
 })

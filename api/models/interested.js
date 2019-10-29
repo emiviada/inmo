@@ -2,22 +2,29 @@ var mysql = require('mysql'),
     db    = require('../dbconnection'),
     Utils = require('../utils'),
     ValidationError = require('../errors/index'),
-    selectQuery = "SELECT id, first_name, last_name, email, role FROM ??";
+    selectQuery = "SELECT * FROM ??";
 
-/** Users' methods **/
-const tableName = "users";
-const Users = {
-  getAll: function(callback) {
+/** Inmuebles' methods **/
+const tableName = "interested";
+const Interested = {
+  getAll: function(userId, callback) {
     var query = selectQuery;
     var table = [tableName];
+
+    if (userId) {
+      query += ' WHERE interested.user_id = ?';
+      table.push(userId);
+    }
     query = mysql.format(query, table);
 
     return db.query(query, callback);
   },
 
   getById: function(id, callback) {
-    var query = `${selectQuery} WHERE id = ?`;
-    var params = [tableName, id];
+    var query = 'SELECT ??.*'
+      + ' FROM ??'
+      + ' WHERE interested.id=?;';
+    var params = [tableName, tableName, id];
     query = mysql.format(query, params);
 
     return db.query(query, callback);
@@ -87,73 +94,19 @@ const Users = {
     query = mysql.format(query, table);
 
     return db.query(query, callback);
-  },
-
-  createProfile: function(userId, callback) {
-    var query = "INSERT INTO ?? (user_id) VALUES (?)",
-        table = ["user_profile", userId];
-    query = mysql.format(query, table);
-
-    return db.query(query, callback);
-  },
-
-  getProfile: function(callback) {
-    var query = "SELECT address, phone, web, facebook, instagram, twitter from ?? WHERE ?? = ?";
-    var table = ["user_profile", "user_id", user.id];
-    query = mysql.format(query, table);
-
-    return db.query(query, callback);
-  },
-
-  updateProfile: function(data, callback) {
-    var query = "UPDATE ?? SET ",
-        table = ["user_profile"];
-
-    for (var prop in data) {
-      if (data.hasOwnProperty(prop)) {
-        query += "?? = ?, ";
-        table.push(prop, data[prop]);
-      }
-    }
-    query = query.substr(0, query.length-2);
-    query += " WHERE ?? = ?";
-    table.push("user_id", user.id);
-    query = mysql.format(query, table);
-
-    return db.query(query, callback);
-  },
-
-  getByEmail: function(email, callback) {
-    var query = `${selectQuery.replace(', role', ', role, password')} WHERE email = ?`,
-        params = [tableName, email];
-    query = mysql.format(query, params);
-
-    return db.query(query, callback);
-  },
-
-  getByToken: function(token, callback) {
-    let query = 'SELECT u.* FROM ?? AS u LEFT JOIN ?? AS t ON t.user_id = u.id WHERE t.token = ?;',
-        params = [tableName, 'user_token', token];
-    query = mysql.format(query, params);
-
-    return db.query(query, callback);
   }
 };
 
 // Validate data
 function validate(mode, data) {
-  let allowed = ['email', 'role', 'password', 'first_name', 'last_name'],
-    required = ['email', 'role'];
+  let allowed = ['user_id', 'type', 'operation', 'info'],
+    required = ['user_id', 'type', 'operation'];
 
   // First check allowed fields
   for (var prop in data) {
     if (allowed.indexOf(prop) === -1) {
       throw new ValidationError('Field "' + prop + '" is not allowed.');
     }
-  }
-
-  if (mode === 'create') {
-    required.push('password')
   }
 
   // Check required fields
@@ -166,4 +119,4 @@ function validate(mode, data) {
   return true;
 };
 
-module.exports = Users;
+module.exports = Interested;

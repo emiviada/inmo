@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Agregar Usuario</h1>
+    <h1>Agregar Cliente Interesado</h1>
     <div class="row">
-      <save-user-form :user="emptyUser" :mode="'add'" v-on:submit="onFormSave"/>
+      <save-interested-form :interested="emptyInterested" :mode="'add'" v-on:submit="onFormSave" />
     </div>
   </div>
 </template>
@@ -10,40 +10,35 @@
 <script>
 import { mapActions } from 'vuex'
 import VueNotifications from 'vue-notifications'
-import SaveUserForm from './SaveUserForm'
-
-var bcrypt = require('bcryptjs')
+import SaveInterestedForm from './SaveInterestedForm'
 
 const initialData = () => {
   return {
-    emptyUser: {
-      first_name: null,
-      last_name: null,
-      email: null,
-      password: null
+    emptyInterested: {
+      type: null,
+      operation: null,
+      info: null
     }
   }
 }
 
 export default {
-  name: 'add-user',
+  name: 'add-interested',
   components: {
-    SaveUserForm
+    SaveInterestedForm
   },
   data: initialData,
   methods: {
     ...mapActions([
-      'saveUser'
+      'saveInterested'
     ]),
-    onFormSave (userData) {
-      delete userData.confirm_password
-      var saltRounds = 10
-      userData.password = bcrypt.hashSync(userData.password, saltRounds)
-      this.saveUser(userData)
+    onFormSave (interestedData) {
+      interestedData.user_id = this.$store.getters.getLoggedInUser.id
+      this.saveInterested(interestedData)
         .then(() => {
           this.notifySuccessCreation()
-          let id = this.$store.getters.getUserJustCreatedId
-          let route = (id) ? '/editar-usuario/' + id : '/usuarios'
+          let id = this.$store.getters.getInterestedJustCreatedId
+          let route = (id) ? '/editar-interesado/' + id : '/interesados'
           this.$router.push(route)
         })
         .catch(() => this.notifyErrorCreation())
@@ -53,7 +48,7 @@ export default {
     notifySuccessCreation: {
       type: VueNotifications.types.success,
       title: 'Felicitaciones',
-      message: 'Usuario creado con éxito'
+      message: 'Cliente interesado creado con éxito'
     },
     notifyErrorCreation: {
       type: VueNotifications.types.error,
@@ -63,3 +58,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+h1 { font-size: 1.25rem; }
+</style>

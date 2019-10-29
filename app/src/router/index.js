@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import store from '../vuex/store'
 import Home from '@/components/home/Home'
 import Login from '@/components/security/Login'
+import MyProfile from '@/components/security/MyProfile'
 import UsersList from '@/components/users/UsersList'
 import AddUser from '@/components/users/AddUser'
 import EditUser from '@/components/users/EditUser'
@@ -11,6 +12,9 @@ import InmueblesList from '@/components/inmuebles/InmueblesList'
 import AddInmueble from '@/components/inmuebles/AddInmueble'
 import EditInmueble from '@/components/inmuebles/EditInmueble'
 import InmuebleDetail from '@/components/inmuebles/InmuebleDetail'
+import InterestedList from '@/components/interested/InterestedList'
+import AddInterested from '@/components/interested/AddInterested'
+import EditInterested from '@/components/interested/EditInterested'
 
 Vue.use(Router)
 
@@ -61,6 +65,13 @@ export default new Router({
       beforeEnter: ifNotAuthenticated
     },
     {
+      path: '/mi-perfil',
+      name: 'MyProfile',
+      component: MyProfile,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: true, inmo: true, admin: true }
+    },
+    {
       path: '/detalle/:id',
       name: 'InmuebleDetail',
       component: InmuebleDetail,
@@ -106,6 +117,27 @@ export default new Router({
       path: '/editar-inmueble/:id',
       name: 'EditInmueble',
       component: EditInmueble,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/interesados',
+      name: 'InterestedList',
+      component: InterestedList,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/agregar-interesado',
+      name: 'InterestedAdd',
+      component: AddInterested,
+      beforeEnter: ifAuthenticated,
+      meta: { normal: false, inmo: true, admin: true }
+    },
+    {
+      path: '/editar-interesado/:id',
+      name: 'InterestedEdit',
+      component: EditInterested,
       beforeEnter: ifAuthenticated,
       meta: { normal: false, inmo: true, admin: true }
     }

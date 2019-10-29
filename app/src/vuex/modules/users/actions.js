@@ -5,7 +5,8 @@ import {
   FETCH_USERS,
   DELETE_USER,
   CREATE_USER,
-  UPDATE_USER
+  UPDATE_USER,
+  GET_PROFILE
 } from './mutation-types'
 
 export function fetchUser ({ commit }, userId) {
@@ -42,4 +43,15 @@ export function saveUser ({ commit, state }, user) {
 export function deleteUser ({ commit }, userId) {
   return Vue.http.delete('users/' + userId)
     .then((response) => commit(DELETE_USER, userId))
+}
+
+// Profile
+export function getProfile ({ commit }) {
+  return Vue.http.get('users/profile')
+    .then((response) => commit(GET_PROFILE, response.body.data))
+}
+
+export function editProfile ({ commit }, profile) {
+  return Vue.http.put('users/profile', profile)
+    .then((response) => commit(GET_PROFILE, profile))
 }

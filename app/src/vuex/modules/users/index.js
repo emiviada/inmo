@@ -6,14 +6,16 @@ import {
   FETCH_USERS,
   DELETE_USER,
   CREATE_USER,
-  UPDATE_USER
+  UPDATE_USER,
+  GET_PROFILE
 } from './mutation-types'
 
 // initial state
 const initialState = {
   all: [],
   justCreatedId: null,
-  user: {}
+  user: {},
+  profile: {}
 }
 
 // mutations
@@ -37,6 +39,10 @@ const mutations = {
 
   [DELETE_USER] (state, userId) {
     state.all = state.all.filter(p => p.id !== userId)
+  },
+
+  [GET_PROFILE] (state, data) {
+    state.profile = data
   }
 }
 

@@ -21,7 +21,8 @@ const dictionary = {
       decimal: () => 'El valor no es válido.',
       email: () => 'Debes ingresar una dirección de e-mail válida.',
       confirmed: () => 'La confirmación no es la misma.',
-      min: () => 'Ingresa al menos 6 caracteres.'
+      min: () => 'Ingresa al menos 6 caracteres.',
+      url: () => 'Debes ingresar una URL válida.'
     }
   }
 }
