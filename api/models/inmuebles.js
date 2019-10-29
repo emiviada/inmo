@@ -27,7 +27,7 @@ const Inmuebles = {
 
   getById: function(id, callback) {
     var query = 'SELECT ??.*, '
-      + 'GROUP_CONCAT(CONCAT("type:", inmuebles_photos.type, "|name:", inmuebles_photos.name, "|obs:", inmuebles_photos.obs)) as `pics`'
+      + 'GROUP_CONCAT(CONCAT("type:", inmuebles_photos.type, "|name:", inmuebles_photos.name, "|obs:", IFNULL(inmuebles_photos.obs, \' \'))) as `pics`'
       + ' FROM ??'
       + ' LEFT JOIN inmuebles_photos ON inmuebles.id = inmuebles_photos.inmueble_id'
       + ' WHERE inmuebles.id=? GROUP BY inmuebles.id;';

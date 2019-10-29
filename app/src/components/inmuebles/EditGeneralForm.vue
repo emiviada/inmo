@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     areaTotal () {
-      return parseFloat(this.inmueble.area_front) + parseFloat(this.inmueble.area_back)
+      return Math.round(parseFloat(this.inmueble.area_front) * parseFloat(this.inmueble.area_back))
     }
   }
 }
@@ -77,5 +77,5 @@ export default {
 
 <style scoped>
   .form-check-input { margin-left: 0; }
-  .form-check-label { font-size: 0.85rem; }
+  .form-check-label { font-size: 0.85rem; padding-left: 20px; }
 </style>

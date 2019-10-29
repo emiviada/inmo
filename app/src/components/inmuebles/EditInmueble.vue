@@ -75,7 +75,10 @@ export default {
     onFormSave (inmuebleData) {
       var _this = this
       this.saveInmueble(inmuebleData)
-        .then(() => _this.notifySuccessEdition())
+        .then(() => {
+          _this.notifySuccessEdition()
+          this.inmueble.id = this.$route.params.id
+        })
         .catch(() => {
           _this.notifyErrorEdition()
         })

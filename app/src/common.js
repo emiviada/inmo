@@ -17,8 +17,9 @@ export const inmuebleTypes = {
 }
 
 export const operations = {
-  'venta': 'Venta',
-  'alquiler': 'Alquiler'
+  'tasacion': 'Tasación',
+  'alquiler': 'Alquiler',
+  'venta': 'Venta'
 }
 
 export const provinces = {
